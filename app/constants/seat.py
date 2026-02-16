@@ -1,4 +1,6 @@
 class SeatLimits:
+    TYPE_MAX = 30
+
     ROW_LABEL_MAX = 10
     ROW_LABEL_MIN = 1
 
