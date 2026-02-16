@@ -8,7 +8,7 @@ from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
 if TYPE_CHECKING:
-    from core.models import Cinema
+    from core.models import Cinema, Seat
 
 
 class Hall(IntIdPkMixin, Base):
@@ -25,3 +25,4 @@ class Hall(IntIdPkMixin, Base):
     cinema_id: Mapped[int] = mapped_column(ForeignKey('cinemas.id', ondelete='RESTRICT'))
 
     cinema: Mapped["Cinema"] = relationship(back_populates="halls")
+    seats: Mapped[list["Seat"]] = relationship(back_populates="hall", cascade="all, delete-orphan")
