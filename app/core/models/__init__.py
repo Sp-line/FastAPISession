@@ -3,9 +3,10 @@ __all__ = (
     "Base",
     "Cinema",
     "Address"
+    "Address",
 )
 
+from .address import Address
 from .base import Base
 from .cinema import Cinema
-from .address import Address
 from .db_helper import db_helper
