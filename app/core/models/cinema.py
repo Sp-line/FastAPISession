@@ -9,6 +9,7 @@ from core.models.mixins.int_id_pk import IntIdPkMixin
 
 if TYPE_CHECKING:
     from core.models import Address
+    from core.models import Hall
 
 
 class Cinema(IntIdPkMixin, Base):
@@ -18,3 +19,4 @@ class Cinema(IntIdPkMixin, Base):
     is_available: Mapped[bool] = mapped_column(Boolean, default=True)
 
     address: Mapped["Address"] = relationship(back_populates="cinema", uselist=False, cascade="all, delete-orphan")
+    halls: Mapped[list["Hall"]] = relationship(back_populates="cinema", cascade="all, delete-orphan")
