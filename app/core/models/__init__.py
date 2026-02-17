@@ -7,6 +7,7 @@ __all__ = (
     "Seat",
     "Movie",
     "Session",
+    "SessionPrice",
 )
 
 from .base import Base
@@ -17,3 +18,4 @@ from .hall import Hall
 from .movie import Movie
 from .seat import Seat
 from .session import Session
+from .session_price import SessionPrice
