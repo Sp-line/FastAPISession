@@ -8,12 +8,16 @@ __all__ = (
     "SeatType",
     "DimensionFormat",
     "ScreenTechnology",
-    "SessionSeatTypePriceLimits"
+    "SessionSeatTypePriceLimits",
+    "ImageUrlLimits",
+    "MovieLimits",
 )
 
 from constants.address import AddressLimits
+from constants.base import ImageUrlLimits
 from constants.cinema import CinemaLimits
 from constants.hall import HallLimits, HallTechType
+from constants.movie import MovieLimits
 from constants.seat import SeatLimits
 from constants.seat_availability import SeatAvailabilityStatus
 from constants.seat_type import SeatType
