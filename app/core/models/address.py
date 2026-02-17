@@ -33,6 +33,6 @@ class Address(IntIdPkMixin, Base):
     latitude: Mapped[float] = mapped_column(Float)
     longitude: Mapped[float] = mapped_column(Float)
 
-    cinema_id: Mapped[int] = mapped_column(ForeignKey('cinemas.id', ondelete='CASCADE'), unique=True)
+    cinema_id: Mapped[int] = mapped_column(ForeignKey("cinemas.id", ondelete="CASCADE"), unique=True)
 
     cinema: Mapped["Cinema"] = relationship(back_populates="address")

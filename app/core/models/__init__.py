@@ -6,6 +6,7 @@ __all__ = (
     "Hall",
     "Seat",
     "Movie",
+    "Session",
 )
 
 from .base import Base
@@ -15,3 +16,4 @@ from .db_helper import db_helper
 from .hall import Hall
 from .movie import Movie
 from .seat import Seat
+from .session import Session

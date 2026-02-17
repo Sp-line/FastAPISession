@@ -32,6 +32,6 @@ class Seat(IntIdPkMixin, Base):
     row: Mapped[int] = mapped_column(Integer)
     column: Mapped[int] = mapped_column(Integer)
 
-    hall_id: Mapped[int] = mapped_column(ForeignKey('halls.id', ondelete='CASCADE'))
+    hall_id: Mapped[int] = mapped_column(ForeignKey("halls.id", ondelete="CASCADE"))
 
     hall: Mapped["Hall"] = relationship(back_populates="seats")
