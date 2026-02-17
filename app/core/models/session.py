@@ -10,7 +10,7 @@ from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
 if TYPE_CHECKING:
-    from core.models import Hall, Movie, SessionPrice
+    from core.models import Hall, Movie, SessionPrice, Booking
 
 
 class Session(IntIdPkMixin, Base):
@@ -52,3 +52,4 @@ class Session(IntIdPkMixin, Base):
     movie: Mapped["Movie"] = relationship(back_populates="sessions")
 
     prices: Mapped[list["SessionPrice"]] = relationship(back_populates="session", cascade="all, delete-orphan")
+    bookings: Mapped[list["Booking"]] = relationship(back_populates="session")

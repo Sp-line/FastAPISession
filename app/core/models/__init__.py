@@ -8,10 +8,12 @@ __all__ = (
     "Movie",
     "Session",
     "SessionPrice",
+    "Booking",
 )
 
 from .base import Base
 from .address import Address
+from .booking import Booking
 from .cinema import Cinema
 from .db_helper import db_helper
 from .hall import Hall
