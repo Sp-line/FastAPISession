@@ -1,6 +1,11 @@
 from enum import StrEnum
 
 
+class SessionLimits:
+    DIMENSION_FORMAT_MAX = 25
+    SCREEN_TECHNOLOGY_MAX = 25
+
+
 class DimensionFormat(StrEnum):
     TWO_D = "2d"
     THREE_D = "3d"
