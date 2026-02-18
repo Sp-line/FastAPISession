@@ -2,6 +2,8 @@ from enum import StrEnum
 
 
 class HallLimits:
+    CAPACITY_MIN = 0
+
     NAME_MAX: int = 30
     NAME_MIN: int = 1
 

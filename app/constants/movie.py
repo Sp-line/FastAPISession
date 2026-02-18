@@ -1,3 +1,6 @@
+from enum import StrEnum
+
+
 class MovieLimits:
     TITLE_MAX: int = 255
     TITLE_MIN: int = 3
@@ -16,3 +19,11 @@ class MovieLimits:
     POSTER_URL_REQ: bool = False
 
     PREMIER_DATE_REQ: bool = False
+
+
+class AgeRating(StrEnum):
+    G = "G"
+    PG = "PG"
+    PG_13 = "PG-13"
+    R = "R"
+    NC_17 = "NC-17"
