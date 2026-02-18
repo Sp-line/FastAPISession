@@ -32,7 +32,7 @@ class BookingUpdateDB(BookingUpdateBase):
     seat_id: Annotated[int | None, Field(ge=1)] = None
 
 
-class BookingUpdateReq(BookingBaseWithRelations):
+class BookingUpdateReq(BookingUpdateBase):
     pass
 
 
