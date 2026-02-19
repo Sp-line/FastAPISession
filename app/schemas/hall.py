@@ -18,7 +18,7 @@ class HallBaseWithRelations(HallBase):
 
 class HallCreateDB(HallBaseWithRelations):
     slug: Annotated[str, Field(min_length=HallLimits.SLUG_MIN, max_length=HallLimits.SLUG_MAX)]
-    capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)]
+    capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)] = 0
 
 
 class HallCreateReq(HallBaseWithRelations):
