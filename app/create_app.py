@@ -7,6 +7,7 @@ from fastapi.responses import ORJSONResponse
 
 from core.models import db_helper
 from dependencies import InfrastructureProvider, RepositoryProvider, ServiceProvider
+from exceptions import register_exception_handlers
 
 
 @asynccontextmanager
@@ -30,5 +31,7 @@ def create() -> FastAPI:
     )
 
     setup_fastapi_dishka(container, app)
+
+    register_exception_handlers(app)
 
     return app
