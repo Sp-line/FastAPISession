@@ -1,6 +1,4 @@
-from typing import Annotated
-
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, PositiveInt
 
 from constants import SeatAvailabilityStatus
 from schemas.base import Id
@@ -11,8 +9,8 @@ class BookingBase(BaseModel):
 
 
 class BookingBaseWithRelations(BookingBase):
-    session_id: Annotated[int, Field(ge=1)]
-    seat_id: Annotated[int, Field(ge=1)]
+    session_id: PositiveInt
+    seat_id: PositiveInt
 
 
 class BookingCreateDB(BookingBaseWithRelations):
@@ -28,8 +26,8 @@ class BookingUpdateBase(BaseModel):
 
 
 class BookingUpdateDB(BookingUpdateBase):
-    session_id: Annotated[int | None, Field(ge=1)] = None
-    seat_id: Annotated[int | None, Field(ge=1)] = None
+    session_id: PositiveInt | None = None
+    seat_id: PositiveInt | None = None
 
 
 class BookingUpdateReq(BookingUpdateBase):

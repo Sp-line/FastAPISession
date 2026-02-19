@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import DimensionFormat, ScreenTechnology
 from schemas.base import Id
@@ -16,8 +16,8 @@ class SessionBase(BaseModel):
 
 
 class SessionBaseWithRelations(SessionBase):
-    hall_id: Annotated[int, Field(ge=1)]
-    movie_id: Annotated[int, Field(ge=1)]
+    hall_id: PositiveInt
+    movie_id: PositiveInt
 
 
 class SessionCreateDB(SessionBaseWithRelations):
@@ -37,8 +37,8 @@ class SessionUpdateBase(BaseModel):
 
 
 class SessionUpdateDB(SessionUpdateBase):
-    hall_id: Annotated[int | None, Field(ge=1)] = None
-    movie_id: Annotated[int | None, Field(ge=1)] = None
+    hall_id: PositiveInt | None = None
+    movie_id: PositiveInt | None = None
 
 
 class SessionUpdateReq(SessionUpdateBase):

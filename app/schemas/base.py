@@ -1,7 +1,7 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, PositiveInt
 
 
 class Id(BaseModel):
-    id: int
+    id: PositiveInt
 
     model_config = ConfigDict(from_attributes=True)

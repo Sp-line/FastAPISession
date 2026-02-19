@@ -1,6 +1,7 @@
+from decimal import Decimal
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import SeatType, SessionPriceLimits
 from schemas.base import Id
@@ -12,7 +13,7 @@ class SessionPriceBase(BaseModel):
 
 
 class SessionPriceBaseWithRelations(SessionPriceBase):
-    session_id: Annotated[int, Field(ge=1)]
+    session_id: PositiveInt
 
 
 class SessionPriceCreateDB(SessionPriceBaseWithRelations):
@@ -25,11 +26,11 @@ class SessionPriceCreateReq(SessionPriceBaseWithRelations):
 
 class SessionPriceUpdateBase(BaseModel):
     seat_type: SeatType | None = None
-    price: Annotated[int | None, Field(ge=SessionPriceLimits.PRICE_MIN)] = None
+    price: Annotated[Decimal | None, Field(ge=SessionPriceLimits.PRICE_MIN)] = None
 
 
 class SessionPriceUpdateDB(SessionPriceUpdateBase):
-    session_id: Annotated[int | None, Field(ge=1)] = None
+    session_id: PositiveInt | None = None
 
 
 class SessionPriceUpdateReq(SessionPriceUpdateBase):

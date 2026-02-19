@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import HallLimits, HallTechType
 from schemas.base import Id
@@ -13,7 +13,7 @@ class HallBase(BaseModel):
 
 
 class HallBaseWithRelations(HallBase):
-    cinema_id: Annotated[int, Field(ge=1)]
+    cinema_id: PositiveInt
 
 
 class HallCreateDB(HallBaseWithRelations):
@@ -34,7 +34,7 @@ class HallUpdateBase(BaseModel):
 class HallUpdateDB(HallUpdateBase):
     slug: Annotated[str | None, Field(min_length=HallLimits.SLUG_MIN, max_length=HallLimits.SLUG_MAX)] = None
     capacity: Annotated[int | None, Field(ge=HallLimits.CAPACITY_MIN)] = None
-    cinema_id: Annotated[int | None, Field(ge=1)] = None
+    cinema_id: PositiveInt | None = None
 
 
 class HallUpdateReq(HallUpdateBase):

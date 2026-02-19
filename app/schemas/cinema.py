@@ -36,6 +36,12 @@ class CinemaUpdateReq(CinemaUpdateBase):
 
 
 class CinemaRead(Id, CinemaBase):
+    slug: Annotated[str, Field(min_length=CinemaLimits.SLUG_MIN, max_length=CinemaLimits.SLUG_MAX)]
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CinemaReadWithRelations(CinemaRead):
     address: AddressRelatedRead
 
     model_config = ConfigDict(from_attributes=True)

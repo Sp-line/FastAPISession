@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import SeatLimits, SeatType
 from schemas.base import Id
@@ -18,7 +18,7 @@ class SeatBase(BaseModel):
 
 
 class SeatBaseWithRelations(SeatBase):
-    hall_id: Annotated[int, Field(ge=1)]
+    hall_id: PositiveInt
 
 
 class SeatCreateDB(SeatBaseWithRelations):
@@ -43,7 +43,7 @@ class SeatUpdateBase(BaseModel):
 
 
 class SeatUpdateDB(SeatUpdateBase):
-    hall_id: Annotated[int | None, Field(ge=1)] = None
+    hall_id: PositiveInt | None = None
 
 
 class SeatUpdateReq(SeatUpdateBase):
