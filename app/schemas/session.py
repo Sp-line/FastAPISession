@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, Self
 
-from pydantic import BaseModel, Field, ConfigDict, PositiveInt
+from pydantic import BaseModel, Field, ConfigDict, PositiveInt, model_validator
 
 from constants import DimensionFormat, ScreenTechnology
 from schemas.base import Id
@@ -13,6 +13,12 @@ class SessionBase(BaseModel):
     dimension_format: DimensionFormat
     screen_technology: ScreenTechnology
     is_active: bool = True
+
+    @model_validator(mode='after')
+    def check_end_time_after_start_time(self) -> Self:
+        if self.end_time <= self.start_time:
+            raise ValueError("End time must be after start time")
+        return self
 
 
 class SessionBaseWithRelations(SessionBase):
