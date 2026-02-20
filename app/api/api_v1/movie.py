@@ -1,7 +1,9 @@
+from datetime import date
+
 from dishka.integrations.fastapi import FromDishka, DishkaRoute
 from fastapi import APIRouter
 
-from schemas.movie import MovieRead, MovieCreateReq, MovieUpdateReq
+from schemas.movie import MovieRead, MovieCreateReq, MovieUpdateReq, MovieRelationsRead
 from services.movie import MovieService
 
 router = APIRouter(route_class=DishkaRoute)
@@ -35,3 +37,19 @@ async def update_movie(movie_id: int, data: MovieUpdateReq, service: FromDishka[
 @router.delete("/{movie_id}")
 async def delete_movie(movie_id: int, service: FromDishka[MovieService]) -> None:
     return await service.delete(movie_id)
+
+
+@router.get("/relations/list")
+async def get_movies_with_relations_for_list(
+        service: FromDishka[MovieService],
+        cinema_id: int,
+        target_date: date,
+        skip: int = 0,
+        limit: int = 100
+) -> list[MovieRelationsRead]:
+    return await service.get_movies_with_relations_for_list_by_cinema_id_and_date(
+        cinema_id=cinema_id,
+        target_date=target_date,
+        skip=skip,
+        limit=limit
+    )

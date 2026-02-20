@@ -46,3 +46,8 @@ class HallRead(Id, HallBaseWithRelations):
     capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)]
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class HallRelatedReadForMovie(Id, BaseModel):
+    name: Annotated[str | None, Field(min_length=HallLimits.NAME_MIN, max_length=HallLimits.NAME_MAX)] = None
+    capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)]

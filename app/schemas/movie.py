@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from constants import MovieLimits, ImageUrlLimits
 from constants.movie import AgeRating
 from schemas.base import Id
+from schemas.session import SessionRelatedReadWithRelationsForMovie
 
 
 class MovieBase(BaseModel):
@@ -42,5 +43,14 @@ class MovieUpdateReq(MovieUpdateBase):
 
 class MovieRead(Id, MovieBase):
     slug: Annotated[str, Field(min_length=MovieLimits.SLUG_MIN, max_length=MovieLimits.SLUG_MAX)]
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class MovieRelationsRead(Id, BaseModel):
+    title: Annotated[str, Field(min_length=MovieLimits.TITLE_MIN, max_length=MovieLimits.TITLE_MAX)]
+    age_rating: AgeRating
+    poster_url: Annotated[str | None, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)] = None
+    sessions: Annotated[list[SessionRelatedReadWithRelationsForMovie], Field(default_factory=list)]
 
     model_config = ConfigDict(from_attributes=True)

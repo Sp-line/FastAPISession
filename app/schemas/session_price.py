@@ -39,3 +39,7 @@ class SessionPriceUpdateReq(SessionPriceUpdateBase):
 
 class SessionPriceRead(Id, SessionPriceBaseWithRelations):
     model_config = ConfigDict(from_attributes=True)
+
+
+class SessionPriceRelatedRead(Id, SessionPriceBase):
+    model_config = ConfigDict(from_attributes=True)

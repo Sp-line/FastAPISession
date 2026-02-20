@@ -5,6 +5,8 @@ from pydantic import BaseModel, Field, ConfigDict, PositiveInt, model_validator
 
 from constants import DimensionFormat, ScreenTechnology
 from schemas.base import Id
+from schemas.hall import HallRelatedReadForMovie
+from schemas.session_price import SessionPriceRelatedRead
 
 
 class SessionBase(BaseModel):
@@ -52,4 +54,11 @@ class SessionUpdateReq(SessionUpdateBase):
 
 
 class SessionRead(Id, SessionBaseWithRelations):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SessionRelatedReadWithRelationsForMovie(Id, SessionBase):
+    hall: HallRelatedReadForMovie
+    prices: Annotated[list[SessionPriceRelatedRead], Field(default_factory=list)]
+
     model_config = ConfigDict(from_attributes=True)
