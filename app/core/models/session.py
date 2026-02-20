@@ -45,8 +45,8 @@ class Session(IntIdPkMixin, Base):
 
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
-    hall_id: Mapped[int] = mapped_column(ForeignKey("halls.id", ondelete="RESTRICT"))
-    movie_id: Mapped[int] = mapped_column(ForeignKey("movies.id", ondelete="RESTRICT"))
+    hall_id: Mapped[int] = mapped_column(ForeignKey("halls.id", ondelete="RESTRICT"), index=True)
+    movie_id: Mapped[int] = mapped_column(ForeignKey("movies.id", ondelete="RESTRICT"), index=True)
 
     hall: Mapped["Hall"] = relationship(back_populates="sessions")
     movie: Mapped["Movie"] = relationship(back_populates="sessions")
