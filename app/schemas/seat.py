@@ -8,7 +8,6 @@ from schemas.booking import BookingRelatedRead
 
 
 class SeatBase(BaseModel):
-    is_active: bool = True
     type: SeatType
 
     row_label: Annotated[str, Field(min_length=SeatLimits.ROW_LABEL_MIN, max_length=SeatLimits.ROW_LABEL_MAX)]
@@ -31,7 +30,6 @@ class SeatCreateReq(SeatBaseWithRelations):
 
 
 class SeatUpdateBase(BaseModel):
-    is_active: bool | None = None
     type: SeatType | None = None
 
     row_label: Annotated[

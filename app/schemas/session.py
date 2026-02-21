@@ -15,7 +15,6 @@ class SessionBase(BaseModel):
     end_time: datetime
     dimension_format: DimensionFormat
     screen_technology: ScreenTechnology
-    is_active: bool = True
 
     @model_validator(mode='after')
     def check_end_time_after_start_time(self) -> Self:
@@ -42,7 +41,6 @@ class SessionUpdateBase(BaseModel):
     end_time: datetime | None = None
     dimension_format: DimensionFormat | None = None
     screen_technology: ScreenTechnology | None = None
-    is_active: bool | None = None
 
 
 class SessionUpdateDB(SessionUpdateBase):

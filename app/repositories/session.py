@@ -33,7 +33,6 @@ class SessionRepository(
                     Session.end_time,
                     Session.dimension_format,
                     Session.screen_technology,
-                    Session.is_active
                 ),
                 joinedload(Session.movie).load_only(
                     Movie.id,
@@ -54,7 +53,7 @@ class SessionRepository(
                         Hall.capacity
                     ),
                     joinedload(Hall.cinema).options(
-                        load_only(Cinema.id, Cinema.name, Cinema.is_available),
+                        load_only(Cinema.id, Cinema.name),
                         joinedload(Cinema.address).load_only(
                             Address.id, Address.city, Address.street,
                             Address.house_number, Address.zip_code,
@@ -64,7 +63,6 @@ class SessionRepository(
                     selectinload(Hall.seats).options(
                         load_only(
                             Seat.id,
-                            Seat.is_active,
                             Seat.type,
                             Seat.row_label,
                             Seat.column_label,

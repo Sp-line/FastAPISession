@@ -23,7 +23,6 @@ class Seat(IntIdPkMixin, Base):
         ),
     )
 
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     type: Mapped[str] = mapped_column(String(SeatLimits.TYPE_MAX))
 
     row_label: Mapped[str] = mapped_column(String(SeatLimits.ROW_LABEL_MAX))

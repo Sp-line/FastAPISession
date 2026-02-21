@@ -25,9 +25,6 @@ class Session(IntIdPkMixin, Base):
                 ),
                 "&&"
             ),
-            where=(
-                    column("is_active") == true()
-            ),
             name="excl_session_hall_time_overlap",
             using="gist"
         ),
@@ -42,8 +39,6 @@ class Session(IntIdPkMixin, Base):
 
     dimension_format: Mapped[str] = mapped_column(String(SessionLimits.DIMENSION_FORMAT_MAX))
     screen_technology: Mapped[str] = mapped_column(String(SessionLimits.SCREEN_TECHNOLOGY_MAX))
-
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     hall_id: Mapped[int] = mapped_column(ForeignKey("halls.id", ondelete="RESTRICT"), index=True)
     movie_id: Mapped[int] = mapped_column(ForeignKey("movies.id", ondelete="RESTRICT"), index=True)

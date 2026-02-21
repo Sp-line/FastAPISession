@@ -40,7 +40,6 @@ class MovieRepository(
             .join(Booking, Booking.session_id == Session.id)
             .join(Hall, Hall.id == Session.hall_id)
             .where(
-                Session.is_active == True,
                 Hall.cinema_id == cinema_id,
                 Session.start_time >= start_of_day,
                 Session.start_time < start_of_next_day
@@ -53,7 +52,6 @@ class MovieRepository(
         sold_out_session_ids = sold_out_result.scalars().all()
 
         conditions = [
-            Session.is_active == True,
             Session.start_time >= start_of_day,
             Session.start_time < start_of_next_day,
             Session.hall.has(Hall.cinema_id == cinema_id)
@@ -84,7 +82,6 @@ class MovieRepository(
                         Session.end_time,
                         Session.dimension_format,
                         Session.screen_technology,
-                        Session.is_active,
                         Session.movie_id,
                         Session.hall_id
                     ),

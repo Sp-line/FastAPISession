@@ -34,7 +34,6 @@ def upgrade() -> None:
         postgresql.ExcludeConstraint(
             (sa.column("hall_id"), "="),
             (sa.text("tstzrange(start_time, end_time, '[)')"), "&&"),
-            where=sa.text("is_active = true"),
             using="gist",
             name="excl_session_hall_time_overlap",
         ),

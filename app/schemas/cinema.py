@@ -10,7 +10,6 @@ from schemas.base import Id
 class CinemaBase(BaseModel):
     name: Annotated[str, Field(min_length=CinemaLimits.NAME_MIN, max_length=CinemaLimits.NAME_MAX)]
     description: str | None = None
-    is_available: bool = True
 
 
 class CinemaCreateDB(CinemaBase):
@@ -24,7 +23,6 @@ class CinemaCreateReq(CinemaBase):
 class CinemaUpdateBase(BaseModel):
     name: Annotated[str | None, Field(min_length=CinemaLimits.NAME_MIN, max_length=CinemaLimits.NAME_MAX)] = None
     description: str | None = None
-    is_available: bool | None = None
 
 
 class CinemaUpdateDB(CinemaUpdateBase):
@@ -43,7 +41,6 @@ class CinemaRead(Id, CinemaBase):
 
 class CinemaReadWithRelationsForSession(Id):
     name: Annotated[str, Field(min_length=CinemaLimits.NAME_MIN, max_length=CinemaLimits.NAME_MAX)]
-    is_available: bool = True
     address: AddressRelatedRead
 
     model_config = ConfigDict(from_attributes=True)
