@@ -21,7 +21,7 @@ class Hall(IntIdPkMixin, Base):
     description: Mapped[str | None] = mapped_column(Text)
     capacity: Mapped[int] = mapped_column(Integer, default=0)
     tech_type: Mapped[str] = mapped_column(String(HallLimits.TECH_TYPE_MAX))
-    cinema_id: Mapped[int] = mapped_column(ForeignKey("cinemas.id", ondelete="RESTRICT"))
+    cinema_id: Mapped[int] = mapped_column(ForeignKey("cinemas.id", ondelete="RESTRICT"), index=True)
 
     cinema: Mapped["Cinema"] = relationship(back_populates="halls")
     seats: Mapped[list["Seat"]] = relationship(back_populates="hall", cascade="all, delete-orphan")
