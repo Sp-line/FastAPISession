@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import SeatLimits, SeatType
 from schemas.base import Id
+from schemas.booking import BookingRelatedRead
 
 
 class SeatBase(BaseModel):
@@ -51,4 +52,10 @@ class SeatUpdateReq(SeatUpdateBase):
 
 
 class SeatRead(Id, SeatBaseWithRelations):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SeatReadWithRelationsForSession(Id, SeatBase):
+    bookings: Annotated[list[BookingRelatedRead], Field(default_factory=list, max_length=1)]
+
     model_config = ConfigDict(from_attributes=True)

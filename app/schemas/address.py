@@ -50,9 +50,9 @@ class AddressUpdateReq(AddressUpdateBase):
     pass
 
 
-class AddressRead(Id, AddressBase):
+class AddressRead(Id, AddressBaseWithRelations):
     model_config = ConfigDict(from_attributes=True)
 
 
-class AddressRelatedRead(Id, AddressBaseWithRelations):
+class AddressRelatedRead(Id, AddressBase):
     model_config = ConfigDict(from_attributes=True)

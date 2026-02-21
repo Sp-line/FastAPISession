@@ -3,9 +3,10 @@ from typing import Annotated, Self
 
 from pydantic import BaseModel, Field, ConfigDict, PositiveInt, model_validator
 
-from constants import DimensionFormat, ScreenTechnology
+from constants import DimensionFormat, ScreenTechnology, MovieLimits, ImageUrlLimits
+from constants.movie import AgeRating
 from schemas.base import Id
-from schemas.hall import HallRelatedReadForMovie
+from schemas.hall import HallRelatedReadForMovie, HallRelatedReadForSession
 from schemas.session_price import SessionPriceRelatedRead
 
 
@@ -62,3 +63,22 @@ class SessionRelatedReadWithRelationsForMovie(Id, SessionBase):
     prices: Annotated[list[SessionPriceRelatedRead], Field(default_factory=list)]
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class MovieRelatedReadForSession(Id):
+    title: Annotated[str, Field(min_length=MovieLimits.TITLE_MIN, max_length=MovieLimits.TITLE_MAX)]
+    duration: Annotated[int, Field(ge=MovieLimits.DURATION_MIN, le=MovieLimits.DURATION_MAX)]
+    age_rating: AgeRating
+    poster_url: Annotated[str, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)]
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SessionDetail(Id, SessionBase):
+    prices: Annotated[list[SessionPriceRelatedRead], Field(default_factory=list)]
+    movie: MovieRelatedReadForSession
+    hall: HallRelatedReadForSession
+
+
+    model_config = ConfigDict(from_attributes=True)
+

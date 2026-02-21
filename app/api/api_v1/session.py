@@ -1,7 +1,7 @@
 from dishka.integrations.fastapi import FromDishka, DishkaRoute
 from fastapi import APIRouter
 
-from schemas.session import SessionRead, SessionCreateReq, SessionUpdateReq
+from schemas.session import SessionRead, SessionCreateReq, SessionUpdateReq, SessionDetail
 from services.session import SessionService
 
 router = APIRouter(route_class=DishkaRoute)
@@ -35,3 +35,8 @@ async def update_session(session_id: int, data: SessionUpdateReq, service: FromD
 @router.delete("/{session_id}")
 async def delete_session(session_id: int, service: FromDishka[SessionService]) -> None:
     return await service.delete(session_id)
+
+
+@router.get("/detail/{session_id}/")
+async def get_session_for_detail(session_id: int, service: FromDishka[SessionService]) -> SessionDetail:
+    return await service.get_for_detail(session_id)

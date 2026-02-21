@@ -4,6 +4,8 @@ from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import HallLimits, HallTechType
 from schemas.base import Id
+from schemas.cinema import CinemaReadWithRelationsForSession
+from schemas.seat import SeatReadWithRelationsForSession
 
 
 class HallBase(BaseModel):
@@ -51,3 +53,11 @@ class HallRead(Id, HallBaseWithRelations):
 class HallRelatedReadForMovie(Id, BaseModel):
     name: Annotated[str | None, Field(min_length=HallLimits.NAME_MIN, max_length=HallLimits.NAME_MAX)] = None
     capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)]
+
+
+class HallRelatedReadForSession(HallRelatedReadForMovie):
+    name: Annotated[str, Field(min_length=HallLimits.NAME_MIN, max_length=HallLimits.NAME_MAX)]
+    cinema: CinemaReadWithRelationsForSession
+    seats: Annotated[list[SeatReadWithRelationsForSession], Field(default_factory=list)]
+
+    model_config = ConfigDict(from_attributes=True)

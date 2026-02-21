@@ -41,7 +41,9 @@ class CinemaRead(Id, CinemaBase):
     model_config = ConfigDict(from_attributes=True)
 
 
-class CinemaReadWithRelations(CinemaRead):
+class CinemaReadWithRelationsForSession(Id):
+    name: Annotated[str, Field(min_length=CinemaLimits.NAME_MIN, max_length=CinemaLimits.NAME_MAX)]
+    is_available: bool = True
     address: AddressRelatedRead
 
     model_config = ConfigDict(from_attributes=True)

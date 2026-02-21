@@ -36,3 +36,7 @@ class BookingUpdateReq(BookingUpdateBase):
 
 class BookingRead(Id, BookingBaseWithRelations):
     model_config = ConfigDict(from_attributes=True)
+
+
+class BookingRelatedRead(Id, BookingBase):
+    model_config = ConfigDict(from_attributes=True)
