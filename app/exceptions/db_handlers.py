@@ -3,7 +3,7 @@ from fastapi.responses import ORJSONResponse
 from sqlalchemy.exc import IntegrityError
 
 from exceptions.db import ObjectNotFoundException, UniqueFieldException, UniqueException, \
-    RelatedObjectNotFoundException, DeleteConstraintException
+    RelatedObjectNotFoundException, DeleteConstraintException, ExclusionException, CheckConstraintException
 
 
 def register_db_exception_handlers(app: FastAPI) -> None:
@@ -72,5 +72,27 @@ def register_db_exception_handlers(app: FastAPI) -> None:
             content={
                 "detail": "Database integrity error",
                 "debug_message": error_detail,
+            },
+        )
+
+    @app.exception_handler(ExclusionException)
+    async def exclusion_error_handler(request: Request, exc: ExclusionException) -> ORJSONResponse:
+        return ORJSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={
+                "fields": list(exc.fields),
+                "table_name": exc.table_name,
+                "detail": str(exc),
+            }
+        )
+
+    @app.exception_handler(CheckConstraintException)
+    async def check_constraint_handler(request: Request, exc: CheckConstraintException) -> ORJSONResponse:
+        return ORJSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={
+                "table_name": exc.table_name,
+                "failed_condition": exc.expression,
+                "detail": str(exc),
             },
         )

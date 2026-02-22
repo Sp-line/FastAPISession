@@ -47,3 +47,24 @@ class DeleteConstraintException(DBException):
         super().__init__(
             f"Cannot delete object from table '{table_name}' because it is referenced by existing records in table '{referencing_table}'"
         )
+
+
+class ExclusionException(DBException):
+    def __init__(self, table_name: str, *fields: str) -> None:
+        self.table_name = table_name
+        self.fields = fields
+        self.fields_str = ', '.join(fields)
+
+        super().__init__(
+            f"Conflicting or overlapping data detected for fields '{self.fields_str}' in table '{table_name}'"
+        )
+
+
+class CheckConstraintException(DBException):
+    def __init__(self, table_name: str, expression: str) -> None:
+        self.table_name = table_name
+        self.expression = expression
+
+        super().__init__(
+            f"Data validation failed in table '{table_name}'. Condition not met: '{expression}'"
+        )
