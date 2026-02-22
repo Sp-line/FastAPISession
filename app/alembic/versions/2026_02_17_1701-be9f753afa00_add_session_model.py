@@ -39,7 +39,7 @@ def upgrade() -> None:
         ),
         sa.CheckConstraint(
             "end_time > start_time",
-            name=op.f("ck_sessions_ck_sessions_end_time_after_start_time"),
+            name=op.f("ck_sessions_end_time_after_start_time"),
         ),
         sa.ForeignKeyConstraint(
             ["hall_id"],

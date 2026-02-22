@@ -30,7 +30,7 @@ class Session(IntIdPkMixin, Base):
         ),
         CheckConstraint(
             "end_time > start_time",
-            name="ck_sessions_end_time_after_start_time"
+            name="end_time_after_start_time"
         ),
     )
 
