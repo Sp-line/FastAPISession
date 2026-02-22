@@ -54,3 +54,7 @@ class MovieRelationsRead(Id, BaseModel):
     sessions: Annotated[list[SessionRelatedReadWithRelationsForMovie], Field(default_factory=list)]
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class MovieCreateEvent(MovieCreateDB):
+    model_config = ConfigDict(extra='ignore')
