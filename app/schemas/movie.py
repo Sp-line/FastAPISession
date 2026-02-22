@@ -14,7 +14,7 @@ class MovieBase(BaseModel):
     duration: Annotated[int, Field(ge=MovieLimits.DURATION_MIN, le=MovieLimits.DURATION_MAX)]
     age_rating: AgeRating
     premiere_date: datetime | None = None
-    poster_url: Annotated[str, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)]
+    poster_url: Annotated[str | None, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)] = None
 
 
 class MovieCreateDB(Id, MovieBase):
