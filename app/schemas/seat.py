@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 from constants import SeatLimits, SeatType
 from schemas.base import Id
 from schemas.booking import BookingRelatedRead
+from schemas.event import CRUDEventSchemas
 
 
 class SeatBase(BaseModel):
@@ -57,3 +58,26 @@ class SeatReadWithRelationsForSession(Id, SeatBase):
     bookings: Annotated[list[BookingRelatedRead], Field(default_factory=list, max_length=1)]
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class SeatCreateEvent(SeatRead):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SeatUpdateEvent(Id, SeatUpdateDB):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SeatDeleteEvent(Id, SeatBaseWithRelations):
+    model_config = ConfigDict(from_attributes=True)
+
+
+seat_event_schemas = CRUDEventSchemas[
+    SeatCreateEvent,
+    SeatUpdateEvent,
+    SeatDeleteEvent
+](
+    create=SeatCreateEvent,
+    update=SeatUpdateEvent,
+    delete=SeatDeleteEvent
+)
