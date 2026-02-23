@@ -9,6 +9,7 @@ from schemas.seat import SeatCreateDB, SeatUpdateDB
 class SeatRepository(
     RepositoryBase[
         Seat,
+        AsyncSession,
         SeatCreateDB,
         SeatUpdateDB,
     ]

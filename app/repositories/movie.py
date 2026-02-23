@@ -14,6 +14,7 @@ from schemas.movie import MovieCreateDB, MovieUpdateDB
 class MovieRepository(
     RepositoryBase[
         Movie,
+        AsyncSession,
         MovieCreateDB,
         MovieUpdateDB,
     ]

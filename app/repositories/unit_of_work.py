@@ -3,8 +3,8 @@ from typing import Self
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-class UnitOfWork:
-    def __init__(self, session: AsyncSession) -> None:
+class UnitOfWork[TSession: AsyncSession]:
+    def __init__(self, session: TSession) -> None:
         self._session = session
 
     async def __aenter__(self) -> Self:

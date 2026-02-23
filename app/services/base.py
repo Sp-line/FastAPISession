@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Any, cast
 
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from exceptions.db import ObjectNotFoundException
 from repositories.base import RepositoryBase
@@ -18,7 +19,7 @@ class ServiceBase[
 ](ABC):
     def __init__(
             self,
-            repository: RepositoryBase[Any, TDBCreateSchema, TDBUpdateSchema],
+            repository: RepositoryBase[Any, AsyncSession, TDBCreateSchema, TDBUpdateSchema],
             unit_of_work: UnitOfWork,
             table_name: str,
             read_schema_type: type[TReadSchema],

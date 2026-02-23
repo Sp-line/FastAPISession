@@ -11,6 +11,7 @@ from schemas.session import SessionCreateDB, SessionUpdateDB
 class SessionRepository(
     RepositoryBase[
         Session,
+        AsyncSession,
         SessionCreateDB,
         SessionUpdateDB,
     ]

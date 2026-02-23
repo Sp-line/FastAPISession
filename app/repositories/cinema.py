@@ -9,6 +9,7 @@ from schemas.cinema import CinemaCreateDB, CinemaUpdateDB
 class CinemaRepository(
     RepositoryBase[
         Cinema,
+        AsyncSession,
         CinemaCreateDB,
         CinemaUpdateDB,
     ]

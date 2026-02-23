@@ -9,6 +9,7 @@ from schemas.address import AddressCreateDB, AddressUpdateDB
 class AddressRepository(
     RepositoryBase[
         Address,
+        AsyncSession,
         AddressCreateDB,
         AddressUpdateDB,
     ]

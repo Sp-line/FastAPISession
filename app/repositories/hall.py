@@ -9,6 +9,7 @@ from schemas.hall import HallCreateDB, HallUpdateDB
 class HallRepository(
     RepositoryBase[
         Hall,
+        AsyncSession,
         HallCreateDB,
         HallUpdateDB,
     ]

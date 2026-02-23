@@ -9,6 +9,7 @@ from schemas.booking import BookingCreateDB, BookingUpdateDB
 class BookingRepository(
     RepositoryBase[
         Booking,
+        AsyncSession,
         BookingCreateDB,
         BookingUpdateDB,
     ]

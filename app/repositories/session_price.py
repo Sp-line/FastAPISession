@@ -9,6 +9,7 @@ from schemas.session_price import SessionPriceCreateDB, SessionPriceUpdateDB
 class SessionPriceRepository(
     RepositoryBase[
         SessionPrice,
+        AsyncSession,
         SessionPriceCreateDB,
         SessionPriceUpdateDB,
     ]

@@ -11,13 +11,14 @@ from integrity_handler.base import TableErrorHandler
 
 class RepositoryBase[
     TModel: IntIdPkMixin,
+    TSession: AsyncSession,
     TCreateSchema: BaseModel,
     TUpdateSchema: BaseModel,
 ]:
     def __init__(
             self,
             model: type[TModel],
-            session: AsyncSession,
+            session: TSession,
             table_error_handler: TableErrorHandler
     ) -> None:
         self._model = model
