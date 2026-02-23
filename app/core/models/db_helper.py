@@ -4,10 +4,10 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
     AsyncEngine,
     async_sessionmaker,
-    AsyncSession,
 )
 
 from core.config import settings
+from events.session import EventSession
 
 
 class DatabaseHelper:
@@ -26,8 +26,9 @@ class DatabaseHelper:
             pool_size=pool_size,
             max_overflow=max_overflow,
         )
-        self.session_factory: async_sessionmaker[AsyncSession] = async_sessionmaker(
+        self.session_factory: async_sessionmaker[EventSession] = async_sessionmaker(
             bind=self.engine,
+            class_=EventSession,
             autoflush=False,
             autocommit=False,
             expire_on_commit=False,
@@ -36,7 +37,7 @@ class DatabaseHelper:
     async def dispose(self) -> None:
         await self.engine.dispose()
 
-    async def session_getter(self) -> AsyncGenerator[AsyncSession, None]:
+    async def session_getter(self) -> AsyncGenerator[EventSession, None]:
         async with self.session_factory() as session:
             yield session
 
