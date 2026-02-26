@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 from constants import HallLimits, HallTechType
 from schemas.base import Id
 from schemas.cinema import CinemaReadWithRelationsForSession
+from schemas.event import CRUDEventSchemas
 from schemas.seat import SeatReadWithRelationsForSession
 
 
@@ -61,3 +62,23 @@ class HallRelatedReadForSession(HallRelatedReadForMovie):
     seats: Annotated[list[SeatReadWithRelationsForSession], Field(default_factory=list)]
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class HallCreateEvent(HallRead):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class HallUpdateEvent(Id, HallUpdateDB):
+    model_config = ConfigDict(from_attributes=True)
+
+
+hall_event_schemas = CRUDEventSchemas[
+    HallCreateEvent,
+    HallUpdateEvent,
+    Id
+](
+    create=HallCreateEvent,
+    update=HallUpdateEvent,
+    delete=Id
+)
+

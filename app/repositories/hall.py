@@ -1,25 +1,32 @@
 from sqlalchemy import select, func, update
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Hall, Seat
+from events.event_session import EventSession
+from events.eventer import Eventer
+from events.hall import hall_crud_publishers
 from integrity_handler import hall_error_handler
-from repositories.base import RepositoryBase
-from schemas.hall import HallCreateDB, HallUpdateDB
+from repositories.signals import SignalRepositoryBase
+from schemas.base import Id
+from schemas.hall import HallCreateDB, HallUpdateDB, HallCreateEvent, HallUpdateEvent, hall_event_schemas
 
 
 class HallRepository(
-    RepositoryBase[
+    SignalRepositoryBase[
         Hall,
-        AsyncSession,
         HallCreateDB,
         HallUpdateDB,
+        HallCreateEvent,
+        HallUpdateEvent,
+        Id
     ]
 ):
-    def __init__(self, session: AsyncSession) -> None:
+    def __init__(self, session: EventSession) -> None:
         super().__init__(
             model=Hall,
             session=session,
             table_error_handler=hall_error_handler,
+            eventer=Eventer(hall_crud_publishers),
+            event_schemas=hall_event_schemas
         )
 
     async def recalculate_and_update_capacity(self, *hall_ids: int) -> None:
