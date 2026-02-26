@@ -1,5 +1,5 @@
 from repositories.session_price import SessionPriceRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories.signals import SignalUnitOfWork
 from schemas.session_price import SessionPriceRead, SessionPriceCreateReq, SessionPriceUpdateReq, SessionPriceCreateDB, \
     SessionPriceUpdateDB
 from services.base import ServiceBase
@@ -15,7 +15,7 @@ class SessionPriceService(
         SessionPriceUpdateDB,
     ],
 ):
-    def __init__(self, repository: SessionPriceRepository, unit_of_work: UnitOfWork) -> None:
+    def __init__(self, repository: SessionPriceRepository, unit_of_work: SignalUnitOfWork) -> None:
         super().__init__(
             repository=repository,
             unit_of_work=unit_of_work,

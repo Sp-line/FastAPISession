@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import SeatType, SessionPriceLimits
 from schemas.base import Id
+from schemas.event import CRUDEventSchemas
 
 
 class SessionPriceBase(BaseModel):
@@ -43,3 +44,23 @@ class SessionPriceRead(Id, SessionPriceBaseWithRelations):
 
 class SessionPriceRelatedRead(Id, SessionPriceBase):
     model_config = ConfigDict(from_attributes=True)
+
+
+class SessionPriceCreateEvent(SessionPriceRead):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SessionPriceUpdateEvent(Id, SessionPriceUpdateDB):
+    model_config = ConfigDict(from_attributes=True)
+
+
+session_price_event_schemas = CRUDEventSchemas[
+    SessionPriceCreateEvent,
+    SessionPriceUpdateEvent,
+    Id
+](
+    create=SessionPriceCreateEvent,
+    update=SessionPriceUpdateEvent,
+    delete=Id
+)
+
