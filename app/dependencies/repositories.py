@@ -1,7 +1,7 @@
 from dishka import Provider, Scope, provide
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from events.session import EventSession
+from events.event_session import EventSession
 from repositories.address import AddressRepository
 from repositories.booking import BookingRepository
 from repositories.cinema import CinemaRepository

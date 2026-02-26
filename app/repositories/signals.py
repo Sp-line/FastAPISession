@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 
 from core.models.mixins.int_id_pk import IntIdPkMixin
 from events.eventer import Eventer
-from events.session import EventSession
+from events.event_session import EventSession
 from integrity_handler.base import TableErrorHandler
 from repositories.base import RepositoryBase
 from repositories.unit_of_work import UnitOfWork

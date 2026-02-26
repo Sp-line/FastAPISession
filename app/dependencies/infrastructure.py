@@ -4,7 +4,7 @@ from dishka import Provider, Scope, provide, alias
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import db_helper
-from events.session import EventSession
+from events.event_session import EventSession
 
 
 class InfrastructureProvider(Provider):

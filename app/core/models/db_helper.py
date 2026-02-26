@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from core.config import settings
-from events.session import EventSession
+from events.event_session import EventSession
 
 
 class DatabaseHelper:
