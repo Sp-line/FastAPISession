@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict, PositiveInt, model_validator
 from constants import DimensionFormat, ScreenTechnology, MovieLimits, ImageUrlLimits
 from constants.movie import AgeRating
 from schemas.base import Id
+from schemas.event import CRUDEventSchemas
 from schemas.hall import HallRelatedReadForMovie, HallRelatedReadForSession
 from schemas.session_price import SessionPriceRelatedRead
 
@@ -79,4 +80,23 @@ class SessionDetail(Id, SessionBase):
 
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class SessionCreateEvent(SessionRead):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SessionUpdateEvent(Id, SessionUpdateDB):
+    model_config = ConfigDict(from_attributes=True)
+
+
+session_event_schemas = CRUDEventSchemas[
+    SessionCreateEvent,
+    SessionUpdateEvent,
+    Id
+](
+    create=SessionCreateEvent,
+    update=SessionUpdateEvent,
+    delete=Id
+)
 
