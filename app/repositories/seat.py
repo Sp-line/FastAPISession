@@ -4,8 +4,8 @@ from events.seat import seat_crud_publishers
 from events.event_session import EventSession
 from integrity_handler import seat_error_handler
 from repositories.signals import SignalRepositoryBase
-from schemas.base import Id
-from schemas.seat import SeatCreateDB, SeatUpdateDB, SeatCreateEvent, SeatUpdateEvent, seat_event_schemas
+from schemas.seat import SeatCreateDB, SeatUpdateDB, SeatCreateEvent, SeatUpdateEvent, seat_event_schemas, \
+    SeatDeleteEvent
 
 
 class SeatRepository(
@@ -15,7 +15,7 @@ class SeatRepository(
         SeatUpdateDB,
         SeatCreateEvent,
         SeatUpdateEvent,
-        Id,
+        SeatDeleteEvent,
     ]
 ):
     def __init__(self, session: EventSession) -> None:
