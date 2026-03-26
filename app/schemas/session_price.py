@@ -10,7 +10,7 @@ from schemas.event import CRUDEventSchemas
 
 class SessionPriceBase(BaseModel):
     seat_type: SeatType
-    price: Annotated[int, Field(ge=SessionPriceLimits.PRICE_MIN)]
+    price: Annotated[Decimal, Field(ge=SessionPriceLimits.PRICE_MIN)]
 
 
 class SessionPriceBaseWithRelations(SessionPriceBase):
