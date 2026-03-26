@@ -10,13 +10,7 @@ router = NatsRouter(str(settings.faststream.nats_url))
 
 catalog_stream = JStream(name="catalog_stream", declare=False)
 
-stream = JStream(
-    name=settings.jstream.name,
-    subjects=settings.jstream.subjects,
-    retention=settings.jstream.retention,
-    max_age=settings.jstream.max_age,
-    discard=settings.jstream.discard,
-)
+stream = JStream("showtimes_stream", declare=False)
 
 
 @router.after_startup

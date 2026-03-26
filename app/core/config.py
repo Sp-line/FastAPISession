@@ -1,6 +1,5 @@
 import logging
 
-from nats.js.api import RetentionPolicy, DiscardPolicy
 from pydantic import BaseModel, NatsDsn
 from pydantic import PostgresDsn
 from pydantic_settings import (
@@ -27,14 +26,6 @@ class ApiPrefix(BaseModel):
 
 class FastStreamConfig(BaseModel):
     nats_url: NatsDsn
-
-
-class JStreamConfig(BaseModel):
-    name: str = "showtimes_stream"
-    subjects: list[str] = ["showtimes.>", ]
-    retention: RetentionPolicy = RetentionPolicy.LIMITS
-    max_age: int = 24 * 60 * 60
-    discard: DiscardPolicy = DiscardPolicy.OLD
 
 
 class LoggingConfig(BaseModel):
@@ -74,7 +65,6 @@ class Settings(BaseSettings):
     logging: LoggingConfig = LoggingConfig()
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
-    jstream: JStreamConfig = JStreamConfig()
     faststream: FastStreamConfig
     db: DatabaseConfig
 
