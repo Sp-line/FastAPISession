@@ -1,30 +1,30 @@
 from core import fs_router
 from schemas.event import CRUDEventPublishers
-from schemas.seat import SeatCreateEvent, SeatUpdateEvent, SeatDeleteEvent
+from schemas.hall import HallCreateEvent, HallUpdateEvent, Id
 
 hall_created = fs_router.publisher(
     "showtimes.halls.created",
-    schema=SeatCreateEvent,
+    schema=HallCreateEvent,
 )
 
 hall_bulk_created = fs_router.publisher(
     "showtimes.halls.bulk.created",
-    schema=list[SeatCreateEvent],
+    schema=list[HallCreateEvent],
 )
 
 hall_updated = fs_router.publisher(
     "showtimes.halls.updated",
-    schema=SeatUpdateEvent,
+    schema=HallUpdateEvent,
 )
 
 hall_bulk_updated = fs_router.publisher(
     "showtimes.halls.bulk.updated",
-    schema=list[SeatUpdateEvent],
+    schema=list[HallUpdateEvent],
 )
 
 hall_deleted = fs_router.publisher(
     "showtimes.halls.deleted",
-    schema=SeatDeleteEvent,
+    schema=Id,
 )
 
 hall_crud_publishers = CRUDEventPublishers(
