@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Any
 
 from pydantic import BaseModel
 from sqlalchemy import select, update, delete
@@ -84,6 +84,31 @@ class RepositoryBase[
             raise
 
         return result.scalar_one_or_none()
+
+    async def bulk_update(self, data: dict[int, TUpdateSchema]) -> Sequence[TModel]:
+        if not data:
+            return []
+
+        update_data: list[dict[str, Any]] = []
+
+        for obj_id, schema in data.items():
+            data_dict = schema.model_dump(exclude_unset=True)
+            if data_dict:
+                data_dict["id"] = obj_id
+                update_data.append(data_dict)
+
+        if not update_data:
+            return []
+
+        stmt = update(self._model).returning(self._model)
+
+        try:
+            result = await self._session.scalars(stmt, update_data)
+        except IntegrityError as e:
+            self._table_error_handler.handle(e)
+            raise
+
+        return result.all()
 
     async def delete(self, obj_id: int) -> bool:
         stmt = delete(self._model).where(self._model.id == obj_id)

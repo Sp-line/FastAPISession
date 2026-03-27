@@ -1,12 +1,13 @@
 from abc import ABC
+from typing import Sequence
 
 from pydantic import BaseModel
 from sqlalchemy import delete
 from sqlalchemy.exc import IntegrityError
 
 from core.models.mixins.int_id_pk import IntIdPkMixin
-from events.eventer import Eventer
 from events.event_session import EventSession
+from events.eventer import Eventer
 from integrity_handler.base import TableErrorHandler
 from repositories.base import RepositoryBase
 from repositories.unit_of_work import UnitOfWork
@@ -15,12 +16,12 @@ from schemas.event import CRUDEventSchemas
 
 
 class SignalRepositoryBase[
-    TModel: IntIdPkMixin,
-    TCreateSchema: BaseModel,
-    TUpdateSchema: BaseModel,
-    TCreateEventSchema: BaseModel,
-    TUpdateEventSchema: BaseModel,
-    TDeleteEventSchema: Id,
+TModel: IntIdPkMixin,
+TCreateSchema: BaseModel,
+TUpdateSchema: BaseModel,
+TCreateEventSchema: BaseModel,
+TUpdateEventSchema: BaseModel,
+TDeleteEventSchema: Id,
 ](
     RepositoryBase[
         TModel,
@@ -71,6 +72,15 @@ class SignalRepositoryBase[
                 )
             )
         return model
+
+    async def bulk_update(self, data: dict[int, TUpdateSchema]) -> Sequence[TModel]:
+        models = await super().bulk_update(data)
+        self._session.events.append(
+            self._eventer.bulk_update(
+                [self.event_schemas.update.model_validate(model) for model in models],
+            )
+        )
+        return models
 
     async def delete(self, obj_id: int) -> bool:
         stmt = (

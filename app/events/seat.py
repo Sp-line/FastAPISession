@@ -17,6 +17,11 @@ seat_updated = fs_router.publisher(
     schema=SeatUpdateEvent,
 )
 
+seat_bulk_updated = fs_router.publisher(
+    "showtimes.seats.bulk.updated",
+    schema=list[SeatUpdateEvent],
+)
+
 seat_deleted = fs_router.publisher(
     "showtimes.seats.deleted",
     schema=SeatDeleteEvent,
@@ -26,5 +31,6 @@ seat_crud_publishers = CRUDEventPublishers(
     create_pub=seat_created,
     bulk_create_pub=seat_bulk_created,
     update_pub=seat_updated,
+    bulk_update_pub=seat_bulk_updated,
     delete_pub=seat_deleted,
 )

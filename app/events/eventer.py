@@ -28,5 +28,8 @@ class Eventer[
     def update(self, payload: TUpdateEventSchema) -> AsyncEventFactory:
         return self._event_factory(self.publishers.update_pub, payload)
 
+    def bulk_update(self, payload: list[TCreateEventSchema]) -> AsyncEventFactory:
+        return self._event_factory(self.publishers.bulk_update_pub, payload)
+
     def delete(self, payload: TDeleteEventSchema) -> AsyncEventFactory:
         return self._event_factory(self.publishers.delete_pub, payload)

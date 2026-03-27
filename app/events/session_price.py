@@ -18,6 +18,11 @@ session_price_updated = fs_router.publisher(
     schema=SessionPriceUpdateEvent,
 )
 
+session_price_bulk_updated = fs_router.publisher(
+    "showtimes.session.prices.bulk.updated",
+    schema=list[SessionPriceUpdateEvent],
+)
+
 session_price_deleted = fs_router.publisher(
     "showtimes.session.prices.deleted",
     schema=Id,
@@ -27,5 +32,6 @@ session_price_crud_publishers = CRUDEventPublishers(
     create_pub=session_price_created,
     bulk_create_pub=session_price_bulk_created,
     update_pub=session_price_updated,
+    bulk_update_pub=session_price_bulk_updated,
     delete_pub=session_price_deleted,
 )

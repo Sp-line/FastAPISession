@@ -1,3 +1,5 @@
+from typing import Sequence
+
 from sqlalchemy import select, func, update
 
 from core.models import Hall, Seat
@@ -29,9 +31,9 @@ class HallRepository(
             event_schemas=hall_event_schemas
         )
 
-    async def recalculate_and_update_capacity(self, *hall_ids: int) -> None:
+    async def _recalculate_capacity_in_db(self, *hall_ids: int) -> Sequence[Hall]:
         if not hall_ids:
-            return
+            return []
 
         count_subquery = (
             select(func.count(Seat.id))
@@ -44,6 +46,17 @@ class HallRepository(
             update(Hall)
             .where(Hall.id.in_(hall_ids))
             .values(capacity=count_subquery)
+            .returning(Hall)
         )
 
-        await self._session.execute(stmt)
+        result = await self._session.execute(stmt)
+        return result.scalars().all()
+
+    async def recalculate_and_update_capacity(self, *hall_ids: int) -> None:
+        objs = await self._recalculate_capacity_in_db(*hall_ids)
+        if objs:
+            self._session.events.append(
+                self._eventer.bulk_update(
+                    [self.event_schemas.update.model_validate(hall) for hall in objs]
+                )
+            )
