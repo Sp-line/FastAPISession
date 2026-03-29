@@ -1,10 +1,10 @@
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, ForeignKey, UniqueConstraint, Numeric
+from sqlalchemy import ForeignKey, UniqueConstraint, Numeric, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from constants import SessionPriceLimits
+from constants import SessionPriceLimits, SeatType
 from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
@@ -20,7 +20,8 @@ class SessionPrice(IntIdPkMixin, Base):
         ),
     )
 
-    seat_type: Mapped[str] = mapped_column(String(SessionPriceLimits.SEAT_TYPE_MAX))
+    seat_type: Mapped[SeatType] = mapped_column(
+        SAEnum(SeatType, native_enum=False, length=SessionPriceLimits.SEAT_TYPE_MAX))
     price: Mapped[Decimal] = mapped_column(Numeric(10, 2))
 
     session_id: Mapped[int] = mapped_column(ForeignKey("sessions.id", ondelete="CASCADE"))

@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, String, Integer, ForeignKey, UniqueConstraint
+from sqlalchemy import String, Integer, ForeignKey, UniqueConstraint, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from constants import SeatLimits
+from constants import SeatLimits, SeatType
 from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
@@ -23,7 +23,7 @@ class Seat(IntIdPkMixin, Base):
         ),
     )
 
-    type: Mapped[str] = mapped_column(String(SeatLimits.TYPE_MAX))
+    type: Mapped[SeatType] = mapped_column(SAEnum(SeatType, native_enum=False, length=SeatLimits.TYPE_MAX))
 
     row_label: Mapped[str] = mapped_column(String(SeatLimits.ROW_LABEL_MAX))
     column_label: Mapped[str] = mapped_column(String(SeatLimits.COLUMN_LABEL_MAX))

@@ -1,11 +1,11 @@
 from pydantic import BaseModel, ConfigDict, PositiveInt
 
-from constants import SeatAvailabilityStatus
+from constants import BookingStatus
 from schemas.base import Id
 
 
 class BookingBase(BaseModel):
-    status: SeatAvailabilityStatus
+    status: BookingStatus
 
 
 class BookingBaseWithRelations(BookingBase):
@@ -22,7 +22,7 @@ class BookingCreateReq(BookingBaseWithRelations):
 
 
 class BookingUpdateBase(BaseModel):
-    status: SeatAvailabilityStatus | None = None
+    status: BookingStatus | None = None
 
 
 class BookingUpdateDB(BookingUpdateBase):

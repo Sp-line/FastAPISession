@@ -1,11 +1,11 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, String, func, column, true, CheckConstraint
+from sqlalchemy import DateTime, ForeignKey, func, column, CheckConstraint, Enum as SAEnum
 from sqlalchemy.dialects.postgresql import ExcludeConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from constants import SessionLimits
+from constants import SessionLimits, DimensionFormat, ScreenTechnology
 from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
@@ -37,8 +37,10 @@ class Session(IntIdPkMixin, Base):
     start_time: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     end_time: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
-    dimension_format: Mapped[str] = mapped_column(String(SessionLimits.DIMENSION_FORMAT_MAX))
-    screen_technology: Mapped[str] = mapped_column(String(SessionLimits.SCREEN_TECHNOLOGY_MAX))
+    dimension_format: Mapped[DimensionFormat] = mapped_column(SAEnum(DimensionFormat), native_enum=False,
+                                                              length=SessionLimits.DIMENSION_FORMAT_MAX)
+    screen_technology: Mapped[ScreenTechnology] = mapped_column(SAEnum(ScreenTechnology), native_enum=False,
+                                                                length=SessionLimits.SCREEN_TECHNOLOGY_MAX)
 
     hall_id: Mapped[int] = mapped_column(ForeignKey("halls.id", ondelete="RESTRICT"), index=True)
     movie_id: Mapped[int] = mapped_column(ForeignKey("movies.id", ondelete="RESTRICT"), index=True)

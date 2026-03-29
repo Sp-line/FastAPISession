@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, String, UniqueConstraint
+from sqlalchemy import ForeignKey, UniqueConstraint, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from constants import BookingLimits
+from constants import BookingLimits, BookingStatus
 from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
@@ -19,7 +19,7 @@ class Booking(IntIdPkMixin, Base):
         ),
     )
 
-    status: Mapped[str] = mapped_column(String(BookingLimits.STATUS_MAX))
+    status: Mapped[BookingStatus] = mapped_column(SAEnum(BookingStatus, native_enum=False, length=BookingLimits.STATUS_MAX))
 
     session_id: Mapped[int] = mapped_column(ForeignKey("sessions.id", ondelete="RESTRICT"))
     seat_id: Mapped[int] = mapped_column(ForeignKey("seats.id", ondelete="RESTRICT"))

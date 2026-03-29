@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Text, Integer, ForeignKey, UniqueConstraint
+from sqlalchemy import String, Text, Integer, ForeignKey, UniqueConstraint, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from constants import HallLimits
+from constants import HallLimits, HallTechType
 from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
@@ -20,7 +20,7 @@ class Hall(IntIdPkMixin, Base):
     slug: Mapped[str] = mapped_column(String(HallLimits.SLUG_MAX), unique=True)
     description: Mapped[str | None] = mapped_column(Text)
     capacity: Mapped[int] = mapped_column(Integer, default=0)
-    tech_type: Mapped[str] = mapped_column(String(HallLimits.TECH_TYPE_MAX))
+    tech_type: Mapped[HallTechType] = mapped_column(SAEnum(HallTechType, native_enum=False, length=HallLimits.TECH_TYPE_MAX))
     cinema_id: Mapped[int] = mapped_column(ForeignKey("cinemas.id", ondelete="RESTRICT"), index=True)
 
     cinema: Mapped["Cinema"] = relationship(back_populates="halls")
