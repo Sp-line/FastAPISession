@@ -40,3 +40,8 @@ class BookingRead(Id, BookingBaseWithRelations):
 
 class BookingRelatedRead(Id, BookingBase):
     model_config = ConfigDict(from_attributes=True)
+
+
+class BookingDeleteDB(BaseModel):
+    session_id: PositiveInt
+    seat_id: PositiveInt
