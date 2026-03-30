@@ -1,12 +1,12 @@
 class SeatLimits:
-    TYPE_MAX = 30
+    TYPE_MAX: int = 30
 
-    ROW_LABEL_MAX = 10
-    ROW_LABEL_MIN = 1
+    ROW_LABEL_MAX: int = 10
+    ROW_LABEL_MIN: int = 1
 
-    COLUMN_LABEL_MAX = 10
-    COLUMN_LABEL_MIN = 1
+    COLUMN_LABEL_MAX: int = 10
+    COLUMN_LABEL_MIN: int = 1
 
-    COLUMN_MIN = 1
+    COLUMN_MIN: int = 1
 
-    ROW_MIN = 1
+    ROW_MIN: int = 1

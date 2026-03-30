@@ -2,8 +2,8 @@ from enum import StrEnum
 
 
 class SessionLimits:
-    DIMENSION_FORMAT_MAX = 25
-    SCREEN_TECHNOLOGY_MAX = 25
+    DIMENSION_FORMAT_MAX: int = 25
+    SCREEN_TECHNOLOGY_MAX: int = 25
 
 
 class DimensionFormat(StrEnum):
