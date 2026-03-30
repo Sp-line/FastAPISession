@@ -37,10 +37,10 @@ class Session(IntIdPkMixin, Base):
     start_time: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     end_time: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
-    dimension_format: Mapped[DimensionFormat] = mapped_column(SAEnum(DimensionFormat), native_enum=False,
-                                                              length=SessionLimits.DIMENSION_FORMAT_MAX)
-    screen_technology: Mapped[ScreenTechnology] = mapped_column(SAEnum(ScreenTechnology), native_enum=False,
-                                                                length=SessionLimits.SCREEN_TECHNOLOGY_MAX)
+    dimension_format: Mapped[DimensionFormat] = mapped_column(SAEnum(DimensionFormat, native_enum=False,
+                                                              length=SessionLimits.DIMENSION_FORMAT_MAX) )
+    screen_technology: Mapped[ScreenTechnology] = mapped_column(SAEnum(ScreenTechnology, native_enum=False,
+                                                                length=SessionLimits.SCREEN_TECHNOLOGY_MAX))
 
     hall_id: Mapped[int] = mapped_column(ForeignKey("halls.id", ondelete="RESTRICT"), index=True)
     movie_id: Mapped[int] = mapped_column(ForeignKey("movies.id", ondelete="RESTRICT"), index=True)
