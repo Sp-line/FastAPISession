@@ -9,6 +9,7 @@ from core.config import settings
 router = NatsRouter(str(settings.faststream.nats_url))
 
 catalog_stream = JStream(name="catalog_stream", declare=False)
+purchases_stream = JStream(name="purchases_stream", declare=False)
 
 stream = JStream("showtimes_stream", declare=False)
 
