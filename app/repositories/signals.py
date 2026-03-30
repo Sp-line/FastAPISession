@@ -16,12 +16,12 @@ from schemas.event import CRUDEventSchemas
 
 
 class SignalRepositoryBase[
-TModel: IntIdPkMixin,
-TCreateSchema: BaseModel,
-TUpdateSchema: BaseModel,
-TCreateEventSchema: BaseModel,
-TUpdateEventSchema: BaseModel,
-TDeleteEventSchema: Id,
+    TModel: IntIdPkMixin,
+    TCreateSchema: BaseModel,
+    TUpdateSchema: BaseModel,
+    TCreateEventSchema: BaseModel,
+    TUpdateEventSchema: BaseModel,
+    TDeleteEventSchema: Id,
 ](
     RepositoryBase[
         TModel,
