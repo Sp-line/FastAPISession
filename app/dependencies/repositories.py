@@ -1,7 +1,5 @@
 from dishka import Provider, Scope, provide
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from events.event_session import EventSession
 from repositories.address import AddressRepository
 from repositories.booking import BookingRepository
 from repositories.cinema import CinemaRepository
@@ -17,13 +15,8 @@ from repositories.unit_of_work import UnitOfWork
 class RepositoryProvider(Provider):
     scope = Scope.REQUEST
 
-    @provide
-    def get_uow(self, session: AsyncSession) -> UnitOfWork:
-        return UnitOfWork(session)
-
-    @provide
-    def get_signal_uow(self, session: EventSession) -> SignalUnitOfWork:
-        return SignalUnitOfWork(session)
+    get_uow = provide(UnitOfWork)
+    get_signal_uow = provide(SignalUnitOfWork)
 
     get_address_repo = provide(AddressRepository)
     get_cinema_repo = provide(CinemaRepository)
