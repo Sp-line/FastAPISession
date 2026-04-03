@@ -1,10 +1,10 @@
 from typing import Self
 
-from sqlalchemy.ext.asyncio import AsyncSession
+from events.event_session import EventSession
 
 
-class UnitOfWork[TSession: AsyncSession]:
-    def __init__(self, session: TSession) -> None:
+class UnitOfWork:
+    def __init__(self, session: EventSession) -> None:
         self._session = session
 
     async def __aenter__(self) -> Self:

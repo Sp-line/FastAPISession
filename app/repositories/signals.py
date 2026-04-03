@@ -106,7 +106,7 @@ class SignalRepositoryBase[
         return False
 
 
-class SignalUnitOfWork[EventSession](UnitOfWork):
+class SignalUnitOfWork(UnitOfWork):
     async def __aexit__(
             self,
             exc_type: object | None,
