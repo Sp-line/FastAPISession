@@ -1,4 +1,8 @@
+__all__ = (
+    "CRUDTopics",
+)
+
+import events.hall
 import events.seat
 import events.session
-import events.event_session
-import events.hall
+from events.topics import CRUDTopics
