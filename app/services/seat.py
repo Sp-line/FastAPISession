@@ -1,5 +1,6 @@
 from repositories.seat import SeatRepository
-from repositories.signals import SignalUnitOfWork
+from repositories.unit_of_work import UnitOfWork
+
 from schemas.seat import SeatRead, SeatCreateReq, SeatUpdateReq, SeatCreateDB, SeatUpdateDB
 from services.base import ServiceBase
 
@@ -14,7 +15,7 @@ class SeatService(
         SeatUpdateDB,
     ],
 ):
-    def __init__(self, repository: SeatRepository, unit_of_work: SignalUnitOfWork) -> None:
+    def __init__(self, repository: SeatRepository, unit_of_work: UnitOfWork) -> None:
         super().__init__(
             repository=repository,
             unit_of_work=unit_of_work,

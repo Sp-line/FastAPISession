@@ -1,7 +1,7 @@
 from slugify import slugify
 
 from repositories.hall import HallRepository
-from repositories.signals import SignalUnitOfWork
+from repositories.unit_of_work import UnitOfWork
 from schemas.hall import HallRead, HallCreateReq, HallUpdateReq, HallCreateDB, HallUpdateDB
 from services.base import ServiceBase
 
@@ -16,7 +16,7 @@ class HallService(
         HallUpdateDB,
     ],
 ):
-    def __init__(self, repository: HallRepository, unit_of_work: SignalUnitOfWork) -> None:
+    def __init__(self, repository: HallRepository, unit_of_work: UnitOfWork) -> None:
         super().__init__(
             repository=repository,
             unit_of_work=unit_of_work,

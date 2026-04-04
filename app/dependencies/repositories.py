@@ -8,15 +8,13 @@ from repositories.movie import MovieRepository
 from repositories.seat import SeatRepository
 from repositories.session import SessionRepository
 from repositories.session_price import SessionPriceRepository
-from repositories.signals import SignalUnitOfWork
 from repositories.unit_of_work import UnitOfWork
 
 
 class RepositoryProvider(Provider):
     scope = Scope.REQUEST
 
-    get_uow = provide(UnitOfWork)
-    get_signal_uow = provide(SignalUnitOfWork)
+    get_unit_of_work = provide(UnitOfWork)
 
     get_address_repo = provide(AddressRepository)
     get_cinema_repo = provide(CinemaRepository)

@@ -1,6 +1,7 @@
 from exceptions.db import ObjectNotFoundException
 from repositories.session import SessionRepository
-from repositories.signals import SignalUnitOfWork
+from repositories.unit_of_work import UnitOfWork
+
 from schemas.session import SessionRead, SessionCreateReq, SessionUpdateReq, SessionCreateDB, SessionUpdateDB, \
     SessionDetail
 from services.base import ServiceBase
@@ -16,7 +17,7 @@ class SessionService(
         SessionUpdateDB,
     ],
 ):
-    def __init__(self, repository: SessionRepository, unit_of_work: SignalUnitOfWork) -> None:
+    def __init__(self, repository: SessionRepository, unit_of_work: UnitOfWork) -> None:
         super().__init__(
             repository=repository,
             unit_of_work=unit_of_work,

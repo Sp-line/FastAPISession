@@ -1,11 +1,9 @@
 from typing import Sequence
 
 from sqlalchemy import select, func, update
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Hall, Seat
-from events.event_session import EventSession
-from events.eventer import Eventer
-from events.hall import hall_crud_publishers
+from core.models import Hall, Seat, OutboxEvent
 from integrity_handler import hall_error_handler
 from repositories.signals import SignalRepositoryBase
 from schemas.base import Id
@@ -22,12 +20,11 @@ class HallRepository(
         Id
     ]
 ):
-    def __init__(self, session: EventSession) -> None:
+    def __init__(self, session: AsyncSession) -> None:
         super().__init__(
             model=Hall,
             session=session,
             table_error_handler=hall_error_handler,
-            eventer=Eventer(hall_crud_publishers),
             event_schemas=hall_event_schemas
         )
 
@@ -53,10 +50,14 @@ class HallRepository(
         return result.scalars().all()
 
     async def recalculate_and_update_capacity(self, *hall_ids: int) -> None:
-        objs = await self._recalculate_capacity_in_db(*hall_ids)
-        if objs:
-            self._session.events.append(
-                self._eventer.bulk_update(
-                    [self.event_schemas.update.model_validate(hall) for hall in objs]
-                )
+        models = await self._recalculate_capacity_in_db(*hall_ids)
+        if models:
+            payloads = [
+                self._event_schemas.update.model_validate(model).model_dump(mode="json")
+                for model in models
+            ]
+            outbox_event = OutboxEvent(
+                subject=self._topics.bulk_update,
+                payload=payloads,
             )
+            self._session.add(outbox_event)

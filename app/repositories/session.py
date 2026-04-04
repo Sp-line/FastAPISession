@@ -1,10 +1,8 @@
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, load_only, joinedload
 
 from core.models import Session, Hall, Cinema, Seat, Booking, SessionPrice, Movie, Address
-from events.event_session import EventSession
-from events.eventer import Eventer
-from events.session import session_crud_publishers
 from integrity_handler import session_error_handler
 from repositories.signals import SignalRepositoryBase
 from schemas.base import Id
@@ -22,12 +20,11 @@ class SessionRepository(
         Id,
     ]
 ):
-    def __init__(self, session: EventSession) -> None:
+    def __init__(self, session: AsyncSession) -> None:
         super().__init__(
             model=Session,
             session=session,
             table_error_handler=session_error_handler,
-            eventer=Eventer(session_crud_publishers),
             event_schemas=session_event_schemas
         )
 
