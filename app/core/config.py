@@ -25,6 +25,7 @@ class ApiPrefix(BaseModel):
 
 
 class FastStreamConfig(BaseModel):
+    microservice: str
     nats_url: NatsDsn
 
 
