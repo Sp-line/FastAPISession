@@ -1,10 +1,12 @@
-from typing import Sequence, Any
+from collections.abc import Sequence, Iterable
+from typing import Any
 
 from pydantic import BaseModel
 from sqlalchemy import select, update, delete
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app_types import IntMap
 from core.models.mixins.int_id_pk import IntIdPkMixin
 from integrity_handler.base import TableErrorHandler
 
@@ -43,7 +45,7 @@ class RepositoryBase[
         await self._session.refresh(obj)
         return obj
 
-    async def bulk_create(self, data: list[TCreateSchema]) -> list[TModel]:
+    async def bulk_create(self, data: Iterable[TCreateSchema]) -> Sequence[TModel]:
         if not data:
             return []
 
@@ -85,7 +87,7 @@ class RepositoryBase[
 
         return result.scalar_one_or_none()
 
-    async def bulk_update(self, data: dict[int, TUpdateSchema]) -> Sequence[TModel]:
+    async def bulk_update(self, data: IntMap[TUpdateSchema]) -> Sequence[TModel]:
         if not data:
             return []
 
