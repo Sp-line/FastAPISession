@@ -9,6 +9,7 @@ __all__ = (
     "Session",
     "SessionPrice",
     "Booking",
+    "OutboxEvent",
 )
 
 from .base import Base
@@ -18,6 +19,7 @@ from .cinema import Cinema
 from .db_helper import db_helper
 from .hall import Hall
 from .movie import Movie
+from .outbox_event import OutboxEvent
 from .seat import Seat
 from .session import Session
 from .session_price import SessionPrice
