@@ -1,5 +1,7 @@
 import logging
 
+from faststream import AckPolicy
+from nats.js.api import DeliverPolicy, AckPolicy as NatsAckPolicy
 from pydantic import BaseModel, NatsDsn
 from pydantic import PostgresDsn
 from pydantic_settings import (
@@ -24,9 +26,18 @@ class ApiPrefix(BaseModel):
     v1: ApiV1Prefix = ApiV1Prefix()
 
 
+class ConsumerConfig(BaseModel):
+    deliver_policy: DeliverPolicy = DeliverPolicy.ALL
+    ack_policy: NatsAckPolicy = NatsAckPolicy.EXPLICIT
+    max_deliver: int = 4
+    backoff: list[float] = [10.0, 20.0, 30.0]
+    faststream_ack_policy: AckPolicy = AckPolicy.NACK_ON_ERROR
+
+
 class FastStreamConfig(BaseModel):
     microservice: str
     nats_url: NatsDsn
+    consumer: ConsumerConfig = ConsumerConfig()
 
 
 class LoggingConfig(BaseModel):
