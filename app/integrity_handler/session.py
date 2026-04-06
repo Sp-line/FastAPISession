@@ -1,8 +1,17 @@
 from constants.db import PostgresErrorCode
 from exceptions.db import RelatedObjectNotFoundException, DeleteConstraintException, ExclusionException, \
-    CheckConstraintException
+    CheckConstraintException, UniqueFieldException
 from integrity_handler.base import TableErrorHandler
 from schemas.db import ConstraintRule
+
+pk_sessions = ConstraintRule(
+    name="pk_sessions",
+    error_code=PostgresErrorCode.UNIQUE_VIOLATION,
+    exception=UniqueFieldException(
+        field_name="id",
+        table_name="sessions"
+    )
+)
 
 fk_sessions_hall_id_halls = ConstraintRule(
     name="fk_sessions_hall_id_halls",
@@ -50,6 +59,7 @@ ck_sessions_end_time_after_start_time = ConstraintRule(
 )
 
 session_error_handler = TableErrorHandler(
+    pk_sessions,
     ck_sessions_end_time_after_start_time,
     excl_session_hall_time_overlap,
     fk_sessions_hall_id_halls,

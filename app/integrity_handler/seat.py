@@ -1,7 +1,17 @@
 from constants.db import PostgresErrorCode
-from exceptions.db import RelatedObjectNotFoundException, UniqueException, DeleteConstraintException
+from exceptions.db import RelatedObjectNotFoundException, UniqueException, DeleteConstraintException, \
+    UniqueFieldException
 from integrity_handler.base import TableErrorHandler
 from schemas.db import ConstraintRule
+
+pk_seats = ConstraintRule(
+    name="pk_seats",
+    error_code=PostgresErrorCode.UNIQUE_VIOLATION,
+    exception=UniqueFieldException(
+        field_name="id",
+        table_name="seats"
+    )
+)
 
 uq_seats_hall_id_row_label_column_label = ConstraintRule(
     name="uq_seats_hall_id_row_label_column_label",
@@ -44,6 +54,7 @@ fk_bookings_seat_id_seats = ConstraintRule(
 )
 
 seat_error_handler = TableErrorHandler(
+    pk_seats,
     uq_seats_hall_id_row_label_column_label,
     uq_seats_hall_id_row_column,
     fk_seats_hall_id_halls,

@@ -4,6 +4,15 @@ from exceptions.db import UniqueFieldException, UniqueException, RelatedObjectNo
 from integrity_handler.base import TableErrorHandler
 from schemas.db import ConstraintRule
 
+pk_halls = ConstraintRule(
+    name="pk_halls",
+    error_code=PostgresErrorCode.UNIQUE_VIOLATION,
+    exception=UniqueFieldException(
+        field_name="id",
+        table_name="halls"
+    )
+)
+
 fk_halls_cinema_id_cinemas = ConstraintRule(
     name="fk_halls_cinema_id_cinemas",
     error_code=PostgresErrorCode.FOREIGN_KEY_VIOLATION,
@@ -41,6 +50,7 @@ fk_sessions_hall_id_halls_delete = ConstraintRule(
 )
 
 hall_error_handler = TableErrorHandler(
+    pk_halls,
     uq_halls_slug,
     uq_halls_cinema_id_name,
     fk_halls_cinema_id_cinemas,
