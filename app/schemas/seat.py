@@ -68,7 +68,7 @@ class SeatUpdateEvent(Id, SeatUpdateDB):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SeatDeleteEvent(Id, SeatBaseWithRelations):
+class SeatDeleteEvent(SeatRead):
     model_config = ConfigDict(from_attributes=True)
 
 

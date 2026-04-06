@@ -50,7 +50,7 @@ class SessionPriceCreateEvent(SessionPriceRead):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SessionPriceUpdateEvent(Id, SessionPriceUpdateDB):
+class SessionPriceUpdateEvent(SessionPriceRead):
     model_config = ConfigDict(from_attributes=True)
 
 

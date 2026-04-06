@@ -68,7 +68,7 @@ class HallCreateEvent(HallRead):
     model_config = ConfigDict(from_attributes=True)
 
 
-class HallUpdateEvent(Id, HallUpdateDB):
+class HallUpdateEvent(HallRead):
     model_config = ConfigDict(from_attributes=True)
 
 

@@ -86,7 +86,7 @@ class SessionCreateEvent(SessionRead):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SessionUpdateEvent(Id, SessionUpdateDB):
+class SessionUpdateEvent(SessionRead):
     model_config = ConfigDict(from_attributes=True)
 
 
