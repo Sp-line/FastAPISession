@@ -1,6 +1,9 @@
-from dishka.integrations.fastapi import FromDishka, DishkaRoute
-from fastapi import APIRouter
+from typing import Annotated
 
+from dishka.integrations.fastapi import FromDishka, DishkaRoute
+from fastapi import APIRouter, Query
+
+from schemas.base import Pagination
 from schemas.session import SessionRead, SessionCreateReq, SessionUpdateReq, SessionDetail
 from services.session import SessionService
 
@@ -8,8 +11,11 @@ router = APIRouter(route_class=DishkaRoute)
 
 
 @router.get("/")
-async def get_sessions(service: FromDishka[SessionService], skip: int = 0, limit: int = 100) -> list[SessionRead]:
-    return await service.get_all(skip, limit)
+async def get_sessions(
+        service: FromDishka[SessionService],
+        query: Annotated[Pagination, Query()]
+) -> list[SessionRead]:
+    return await service.get_all(query.skip, query.limit)
 
 
 @router.get("/{session_id}")

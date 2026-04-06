@@ -1,11 +1,11 @@
-from datetime import datetime
+from datetime import datetime, date
 from typing import Annotated
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
 from constants import MovieLimits, ImageUrlLimits
 from constants.movie import AgeRating
-from schemas.base import Id
+from schemas.base import Id, Pagination
 from schemas.session import SessionRelatedReadWithRelationsForMovie
 
 
@@ -54,6 +54,11 @@ class MovieRelationsRead(Id, BaseModel):
     sessions: Annotated[list[SessionRelatedReadWithRelationsForMovie], Field(default_factory=list)]
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class GetMoviesWithRelationsForListQuery(Pagination):
+    cinema_id: PositiveInt
+    target_date: date
 
 
 class MovieCreateEvent(MovieCreateDB):

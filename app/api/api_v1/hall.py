@@ -1,6 +1,9 @@
-from dishka.integrations.fastapi import FromDishka, DishkaRoute
-from fastapi import APIRouter
+from typing import Annotated
 
+from dishka.integrations.fastapi import FromDishka, DishkaRoute
+from fastapi import APIRouter, Query
+
+from schemas.base import Pagination
 from schemas.hall import HallRead, HallCreateReq, HallUpdateReq
 from services.hall import HallService
 
@@ -8,8 +11,11 @@ router = APIRouter(route_class=DishkaRoute)
 
 
 @router.get("/")
-async def get_halls(service: FromDishka[HallService], skip: int = 0, limit: int = 100) -> list[HallRead]:
-    return await service.get_all(skip, limit)
+async def get_halls(
+        service: FromDishka[HallService],
+        query: Annotated[Pagination, Query()]
+) -> list[HallRead]:
+    return await service.get_all(query.skip, query.limit)
 
 
 @router.get("/{hall_id}")

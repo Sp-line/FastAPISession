@@ -1,15 +1,21 @@
+from typing import Annotated
+
 from dishka.integrations.fastapi import FromDishka, DishkaRoute
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from schemas.address import AddressRead, AddressCreateReq, AddressUpdateReq
+from schemas.base import Pagination
 from services.address import AddressService
 
 router = APIRouter(route_class=DishkaRoute)
 
 
 @router.get("/")
-async def get_addresses(service: FromDishka[AddressService], skip: int = 0, limit: int = 100) -> list[AddressRead]:
-    return await service.get_all(skip, limit)
+async def get_addresses(
+        service: FromDishka[AddressService],
+        query: Annotated[Pagination, Query()]
+) -> list[AddressRead]:
+    return await service.get_all(query.skip, query.limit)
 
 
 @router.get("/{address_id}")

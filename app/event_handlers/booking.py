@@ -13,7 +13,8 @@ from services.ticket import TicketStatusAdapter
 @fs_router.subscriber(
     "purchases.tickets.created",
     stream=purchases_stream,
-    durable="ticket_created_on_order_microservice_booking_create",
+    pull_sub=True,
+    durable="order_svc_tickets_created_booking_create",
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -39,7 +40,8 @@ async def ticket_created_on_order_microservice_booking_create(
 @fs_router.subscriber(
     "purchases.tickets.bulk.created",
     stream=purchases_stream,
-    durable="tickets_created_on_order_microservice_bookings_create",
+    pull_sub=True,
+    durable="order_svc_tickets_bulk_created_bookings_create",
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -71,7 +73,8 @@ async def tickets_created_on_order_microservice_bookings_create(
 @fs_router.subscriber(
     "purchases.tickets.updated",
     stream=purchases_stream,
-    durable="ticket_updated_on_order_microservice_booking_sync",
+    pull_sub=True,
+    durable="order_svc_tickets_updated_booking_sync",
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -103,7 +106,8 @@ async def ticket_updated_on_order_microservice_booking_sync(
 @fs_router.subscriber(
     "purchases.tickets.bulk.updated",
     stream=purchases_stream,
-    durable="tickets_bulk_updated_on_order_microservice_sync",
+    pull_sub=True,
+    durable="order_svc_tickets_bulk_updated_bookings_sync",
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -146,7 +150,8 @@ async def tickets_bulk_updated_on_order_microservice_sync(
 @fs_router.subscriber(
     "purchases.tickets.deleted",
     stream=purchases_stream,
-    durable="ticket_deleted_on_order_microservice_booking_delete",
+    pull_sub=True,
+    durable="order_svc_ticket_deleted_booking_delete",
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
