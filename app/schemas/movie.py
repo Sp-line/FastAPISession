@@ -3,7 +3,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
-from constants import MovieLimits, ImageUrlLimits, SlugLimits
+from constants import MovieLimits, ImageUrlLimits
 from constants.movie import AgeRating
 from schemas.base import Id, Pagination
 from schemas.session import SessionRelatedReadWithRelationsForMovie
@@ -22,7 +22,7 @@ class MovieCreateReq(Id, MovieBase):
 
 
 class MovieCreateDB(MovieCreateReq):
-    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
+    slug: Annotated[str, Field(min_length=MovieLimits.SLUG_MIN, max_length=MovieLimits.SLUG_MAX)]
 
 
 class MovieUpdateBase(BaseModel):
@@ -37,12 +37,12 @@ class MovieUpdateReq(MovieUpdateBase):
 
 
 class MovieUpdateDB(MovieUpdateReq):
-    slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
+    slug: Annotated[str | None, Field(min_length=MovieLimits.SLUG_MIN, max_length=MovieLimits.SLUG_MAX)] = None
     poster_url: Annotated[str | None, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)] = None
 
 
 class MovieRead(Id, MovieBase):
-    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
+    slug: Annotated[str, Field(min_length=MovieLimits.SLUG_MIN, max_length=MovieLimits.SLUG_MAX)]
 
     model_config = ConfigDict(from_attributes=True)
 

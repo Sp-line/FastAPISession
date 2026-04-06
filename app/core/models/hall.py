@@ -17,7 +17,7 @@ class Hall(IntIdPkMixin, Base):
     )
 
     name: Mapped[str] = mapped_column(String(HallLimits.NAME_MAX))
-    slug: Mapped[str] = mapped_column(String(SlugLimits.SLUG_MAX), unique=True)
+    slug: Mapped[str] = mapped_column(String(HallLimits.SLUG_MAX), unique=True)
     description: Mapped[str | None] = mapped_column(Text)
     capacity: Mapped[int] = mapped_column(Integer, default=0)
     tech_type: Mapped[HallTechType] = mapped_column(SAEnum(HallTechType, native_enum=False, length=HallLimits.TECH_TYPE_MAX))

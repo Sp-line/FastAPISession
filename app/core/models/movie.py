@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class Movie(IntIdPkMixin, Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=False)
-    slug: Mapped[str] = mapped_column(String(SlugLimits.SLUG_MAX), unique=True)
+    slug: Mapped[str] = mapped_column(String(MovieLimits.SLUG_MAX), unique=True)
     title: Mapped[str] = mapped_column(String(MovieLimits.TITLE_MAX))
     duration: Mapped[int] = mapped_column(SmallInteger)
     age_rating: Mapped[AgeRating] = mapped_column(SAEnum(AgeRating, native_enum=False, length=MovieLimits.AGE_RATING_MAX))
