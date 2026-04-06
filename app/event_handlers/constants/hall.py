@@ -1,0 +1,7 @@
+from enum import StrEnum, auto
+
+
+class HallDurables(StrEnum):
+    SHOWTIMES_SVC_SEATS_CREATED_HALL_RECALCULATE = auto()
+    SHOWTIMES_SVC_SEATS_BULK_CREATED_HALL_RECALCULATE = auto()
+    SHOWTIMES_SVC_SEATS_DELETED_HALL_RECALCULATE = auto()
