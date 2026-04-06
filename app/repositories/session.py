@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, load_only, joinedload
 
 from core.models import Session, Hall, Cinema, Seat, Booking, SessionPrice, Movie, Address
-from integrity_handler import session_error_handler
+from repositories.integrity_handler import session_error_handler
 from repositories.signals import SignalRepositoryBase
 from schemas.base import Id
 from schemas.session import SessionCreateDB, SessionUpdateDB, SessionCreateEvent, SessionUpdateEvent, \

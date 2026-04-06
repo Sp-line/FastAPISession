@@ -1,6 +1,6 @@
 from constants.db import PostgresErrorCode
 from exceptions.db import UniqueFieldException, RelatedObjectNotFoundException
-from integrity_handler.base import TableErrorHandler
+from repositories.integrity_handler.base import TableErrorHandler
 from schemas.db import ConstraintRule
 
 pk_addresses = ConstraintRule(

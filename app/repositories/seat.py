@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Seat
-from integrity_handler import seat_error_handler
+from repositories.integrity_handler import seat_error_handler
 from repositories.signals import SignalRepositoryBase
 from schemas.seat import SeatCreateDB, SeatUpdateDB, SeatCreateEvent, SeatUpdateEvent, seat_event_schemas, \
     SeatDeleteEvent

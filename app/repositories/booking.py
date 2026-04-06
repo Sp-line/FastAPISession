@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Booking
-from integrity_handler import booking_error_handler
+from repositories.integrity_handler import booking_error_handler
 from repositories.base import RepositoryBase
 from schemas.booking import BookingCreateDB, BookingUpdateDB, BookingDeleteDB
 

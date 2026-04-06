@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, load_only
 
 from core.models import Movie, Session, Booking, Hall, SessionPrice
-from integrity_handler import movie_error_handler
+from repositories.integrity_handler import movie_error_handler
 from repositories.base import RepositoryBase
 from schemas.movie import MovieCreateDB, MovieUpdateDB
 

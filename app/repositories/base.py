@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app_types import IntMap
 from core.models.mixins.int_id_pk import IntIdPkMixin
-from integrity_handler.base import TableErrorHandler
+from repositories.integrity_handler import TableErrorHandler
 
 
 class RepositoryBase[

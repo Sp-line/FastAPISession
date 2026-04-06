@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import SessionPrice
-from integrity_handler import session_price_error_handler
+from repositories.integrity_handler import session_price_error_handler
 from repositories.signals import SignalRepositoryBase
 from schemas.base import Id
 from schemas.session_price import SessionPriceCreateDB, SessionPriceUpdateDB, session_price_event_schemas, \

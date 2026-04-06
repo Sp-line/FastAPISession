@@ -4,7 +4,7 @@ from sqlalchemy import select, func, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Hall, Seat, OutboxEvent
-from integrity_handler import hall_error_handler
+from repositories.integrity_handler import hall_error_handler
 from repositories.signals import SignalRepositoryBase
 from schemas.base import Id
 from schemas.hall import HallCreateDB, HallUpdateDB, HallCreateEvent, HallUpdateEvent, hall_event_schemas

@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Address
-from integrity_handler import address_error_handler
+from repositories.integrity_handler import address_error_handler
 from repositories.base import RepositoryBase
 from schemas.address import AddressCreateDB, AddressUpdateDB
 

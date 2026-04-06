@@ -11,7 +11,7 @@ from core.config import settings
 from core.models import OutboxEvent
 from core.models.mixins.int_id_pk import IntIdPkMixin
 from events import CRUDTopics
-from integrity_handler.base import TableErrorHandler
+from repositories.integrity_handler import TableErrorHandler
 from repositories.base import RepositoryBase
 from schemas.base import Id
 from schemas.event import CRUDEventSchemas
