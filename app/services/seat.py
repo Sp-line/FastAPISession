@@ -1,6 +1,4 @@
-from repositories.seat import SeatRepository
-from repositories.unit_of_work import UnitOfWork
-
+from repositories import SeatRepository, UnitOfWork
 from schemas.seat import SeatRead, SeatCreateReq, SeatUpdateReq, SeatCreateDB, SeatUpdateDB
 from services.base import ServiceBase
 

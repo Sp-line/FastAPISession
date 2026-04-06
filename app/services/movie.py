@@ -2,8 +2,7 @@ from datetime import date
 
 from slugify import slugify
 
-from repositories.movie import MovieRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import MovieRepository, UnitOfWork
 from schemas.movie import MovieRead, MovieCreateReq, MovieUpdateReq, MovieCreateDB, MovieUpdateDB, MovieRelationsRead
 from services.base import ServiceBase
 

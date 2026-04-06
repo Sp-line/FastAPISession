@@ -1,5 +1,4 @@
-from repositories.booking import BookingRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import BookingRepository, UnitOfWork
 from schemas.booking import BookingRead, BookingCreateReq, BookingUpdateReq, BookingCreateDB, BookingUpdateDB
 from services.base import ServiceBase
 

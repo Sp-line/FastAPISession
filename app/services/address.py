@@ -1,5 +1,4 @@
-from repositories.address import AddressRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import AddressRepository, UnitOfWork
 from schemas.address import AddressRead, AddressCreateReq, AddressUpdateReq, AddressCreateDB, AddressUpdateDB
 from services.base import ServiceBase
 

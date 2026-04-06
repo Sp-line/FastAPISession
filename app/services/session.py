@@ -1,7 +1,5 @@
 from exceptions.db import ObjectNotFoundException
-from repositories.session import SessionRepository
-from repositories.unit_of_work import UnitOfWork
-
+from repositories import SessionRepository, UnitOfWork
 from schemas.session import SessionRead, SessionCreateReq, SessionUpdateReq, SessionCreateDB, SessionUpdateDB, \
     SessionDetail
 from services.base import ServiceBase

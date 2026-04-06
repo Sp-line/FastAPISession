@@ -6,8 +6,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from exceptions.db import ObjectNotFoundException
-from repositories.base import RepositoryBase
-from repositories.unit_of_work import UnitOfWork
+from repositories import RepositoryBase, UnitOfWork
 
 
 class ServiceBase[

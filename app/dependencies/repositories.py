@@ -1,14 +1,16 @@
 from dishka import Provider, Scope, provide
 
-from repositories.address import AddressRepository
-from repositories.booking import BookingRepository
-from repositories.cinema import CinemaRepository
-from repositories.hall import HallRepository
-from repositories.movie import MovieRepository
-from repositories.seat import SeatRepository
-from repositories.session import SessionRepository
-from repositories.session_price import SessionPriceRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import (
+    UnitOfWork,
+    AddressRepository,
+    CinemaRepository,
+    HallRepository,
+    SessionRepository,
+    BookingRepository,
+    MovieRepository,
+    SeatRepository,
+    SessionPriceRepository
+)
 
 
 class RepositoryProvider(Provider):

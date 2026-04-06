@@ -1,7 +1,6 @@
 from slugify import slugify
 
-from repositories.cinema import CinemaRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import CinemaRepository, UnitOfWork
 from schemas.cinema import CinemaRead, CinemaCreateReq, CinemaUpdateReq, CinemaCreateDB, CinemaUpdateDB
 from services.base import ServiceBase
 

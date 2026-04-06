@@ -1,6 +1,4 @@
-from repositories.session_price import SessionPriceRepository
-from repositories.unit_of_work import UnitOfWork
-
+from repositories import SessionPriceRepository, UnitOfWork
 from schemas.session_price import SessionPriceRead, SessionPriceCreateReq, SessionPriceUpdateReq, SessionPriceCreateDB, \
     SessionPriceUpdateDB
 from services.base import ServiceBase
