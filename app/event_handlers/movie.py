@@ -4,6 +4,8 @@ from nats.js.api import DeliverPolicy
 from pydantic import TypeAdapter
 
 from core import fs_router, catalog_stream
+from event_handlers.base import base_consumer_config
+from event_handlers.constants import MovieDurables
 from repositories import MovieRepository, UnitOfWork
 from schemas.movie import MovieCreateEvent, MovieCreateDB, MovieUpdateEvent, MovieUpdateDB
 
@@ -11,8 +13,11 @@ from schemas.movie import MovieCreateEvent, MovieCreateDB, MovieUpdateEvent, Mov
 @fs_router.subscriber(
     "catalog.movies.created",
     stream=catalog_stream,
+    pull_sub=True,
+    durable=MovieDurables.CATALOG_SVC_MOVIES_CREATED_SYNC_DB,
     deliver_policy=DeliverPolicy.NEW,
-    ack_policy=AckPolicy.NACK_ON_ERROR
+    ack_policy=AckPolicy.NACK_ON_ERROR,
+    config=base_consumer_config
 )
 async def movies_created_on_movie_microservice_sync_db(
         payload: MovieCreateEvent,
@@ -26,8 +31,11 @@ async def movies_created_on_movie_microservice_sync_db(
 @fs_router.subscriber(
     "catalog.movies.bulk.created",
     stream=catalog_stream,
+    pull_sub=True,
+    durable=MovieDurables.CATALOG_SVC_MOVIES_BULK_CREATED_SYNC_DB,
     deliver_policy=DeliverPolicy.NEW,
-    ack_policy=AckPolicy.NACK_ON_ERROR
+    ack_policy=AckPolicy.NACK_ON_ERROR,
+    config=base_consumer_config
 )
 async def movies_bulk_created_on_movie_microservice_sync_db(
         payload: list[MovieCreateEvent],
@@ -43,8 +51,11 @@ async def movies_bulk_created_on_movie_microservice_sync_db(
 @fs_router.subscriber(
     "catalog.movies.updated",
     stream=catalog_stream,
+    pull_sub=True,
+    durable=MovieDurables.CATALOG_SVC_MOVIES_UPDATED_SYNC_DB,
     deliver_policy=DeliverPolicy.NEW,
-    ack_policy=AckPolicy.NACK_ON_ERROR
+    ack_policy=AckPolicy.NACK_ON_ERROR,
+    config=base_consumer_config
 )
 async def movies_updated_on_movie_microservice_sync_db(
         payload: MovieUpdateEvent,
@@ -53,4 +64,3 @@ async def movies_updated_on_movie_microservice_sync_db(
 ) -> None:
     async with unit_of_work:
         await repository.update(payload.id, MovieUpdateDB(**payload.model_dump()))
-

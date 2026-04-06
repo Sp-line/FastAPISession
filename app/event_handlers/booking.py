@@ -3,6 +3,7 @@ from faststream import AckPolicy
 
 from core import fs_router, purchases_stream
 from event_handlers.base import base_consumer_config
+from event_handlers.constants import BookingDurables
 from repositories import BookingRepository, UnitOfWork
 from schemas.booking import BookingCreateDB, BookingDeleteDB
 from schemas.ticket import TicketCreateEvent, TicketUpdateEvent, TicketDeleteEvent
@@ -13,7 +14,7 @@ from services.ticket import TicketStatusAdapter
     "purchases.tickets.created",
     stream=purchases_stream,
     pull_sub=True,
-    durable="order_svc_tickets_created_booking_create",
+    durable=BookingDurables.ORDER_SVC_TICKETS_CREATED_BOOKING_CREATE,
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -40,7 +41,7 @@ async def ticket_created_on_order_microservice_booking_create(
     "purchases.tickets.bulk.created",
     stream=purchases_stream,
     pull_sub=True,
-    durable="order_svc_tickets_bulk_created_bookings_create",
+    durable=BookingDurables.ORDER_SVC_TICKETS_BULK_CREATED_BOOKINGS_CREATE,
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -73,7 +74,7 @@ async def tickets_created_on_order_microservice_bookings_create(
     "purchases.tickets.updated",
     stream=purchases_stream,
     pull_sub=True,
-    durable="order_svc_tickets_updated_booking_sync",
+    durable=BookingDurables.ORDER_SVC_TICKETS_UPDATED_BOOKING_SYNC,
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -106,7 +107,7 @@ async def ticket_updated_on_order_microservice_booking_sync(
     "purchases.tickets.bulk.updated",
     stream=purchases_stream,
     pull_sub=True,
-    durable="order_svc_tickets_bulk_updated_bookings_sync",
+    durable=BookingDurables.ORDER_SVC_TICKETS_BULK_UPDATED_BOOKINGS_SYNC,
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
@@ -150,7 +151,7 @@ async def tickets_bulk_updated_on_order_microservice_sync(
     "purchases.tickets.deleted",
     stream=purchases_stream,
     pull_sub=True,
-    durable="order_svc_ticket_deleted_booking_delete",
+    durable=BookingDurables.ORDER_SVC_TICKET_DELETED_BOOKING_DELETE,
     ack_policy=AckPolicy.NACK_ON_ERROR,
     config=base_consumer_config
 )
