@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Iterable
 from typing import Any, cast
 
 from pydantic import BaseModel
@@ -32,10 +33,11 @@ class ServiceBase[
     async def get_all(self, skip: int = 0, limit: int = 100) -> list[TReadSchema]:
         return [self._read_schema_type.model_validate(obj) for obj in await self._repository.get_all(skip, limit)]
 
-    async def bulk_create(self, data: list[TCreateSchema]) -> list[TReadSchema]:
+    async def bulk_create(self, data: Iterable[TCreateSchema]) -> list[TReadSchema]:
         prepared_data = list(map(self._prepare_create_data, data))
         async with self._uof:
-            return [self._read_schema_type.model_validate(obj) for obj in await self._repository.bulk_create(prepared_data)]
+            return [self._read_schema_type.model_validate(obj) for obj in
+                    await self._repository.bulk_create(prepared_data)]
 
     async def create(self, data: TCreateSchema) -> TReadSchema:
         prepared_data = self._prepare_create_data(data)
