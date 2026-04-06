@@ -2,7 +2,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, Field, ConfigDict
 
-from constants import CinemaLimits
+from constants import CinemaLimits, SlugLimits
 from schemas.address import AddressRelatedRead
 from schemas.base import Id
 
@@ -13,7 +13,7 @@ class CinemaBase(BaseModel):
 
 
 class CinemaCreateDB(CinemaBase):
-    slug: Annotated[str, Field(min_length=CinemaLimits.SLUG_MIN, max_length=CinemaLimits.SLUG_MAX)]
+    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
 
 
 class CinemaCreateReq(CinemaBase):
@@ -26,7 +26,7 @@ class CinemaUpdateBase(BaseModel):
 
 
 class CinemaUpdateDB(CinemaUpdateBase):
-    slug: Annotated[str | None, Field(min_length=CinemaLimits.SLUG_MIN, max_length=CinemaLimits.SLUG_MAX)] = None
+    slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
 
 
 class CinemaUpdateReq(CinemaUpdateBase):
@@ -34,7 +34,7 @@ class CinemaUpdateReq(CinemaUpdateBase):
 
 
 class CinemaRead(Id, CinemaBase):
-    slug: Annotated[str, Field(min_length=CinemaLimits.SLUG_MIN, max_length=CinemaLimits.SLUG_MAX)]
+    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
 
     model_config = ConfigDict(from_attributes=True)
 

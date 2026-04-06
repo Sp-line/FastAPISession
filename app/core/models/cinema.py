@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Text, Boolean
+from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from constants import CinemaLimits
+from constants import CinemaLimits, SlugLimits
 from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class Cinema(IntIdPkMixin, Base):
     name: Mapped[str] = mapped_column(String(CinemaLimits.NAME_MAX))
-    slug: Mapped[str] = mapped_column(String(CinemaLimits.SLUG_MAX), unique=True)
+    slug: Mapped[str] = mapped_column(String(SlugLimits.SLUG_MAX), unique=True)
     description: Mapped[str | None] = mapped_column(Text)
 
     address: Mapped["Address"] = relationship(back_populates="cinema", uselist=False, cascade="all, delete-orphan")

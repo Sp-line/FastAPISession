@@ -2,7 +2,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, Field, ConfigDict, PositiveInt
 
-from constants import HallLimits, HallTechType
+from constants import HallLimits, HallTechType, SlugLimits
 from schemas.base import Id
 from schemas.cinema import CinemaReadWithRelationsForSession
 from schemas.event import CRUDEventSchemas
@@ -20,7 +20,7 @@ class HallBaseWithRelations(HallBase):
 
 
 class HallCreateDB(HallBaseWithRelations):
-    slug: Annotated[str, Field(min_length=HallLimits.SLUG_MIN, max_length=HallLimits.SLUG_MAX)]
+    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
     capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)] = 0
 
 
@@ -35,7 +35,7 @@ class HallUpdateBase(BaseModel):
 
 
 class HallUpdateDB(HallUpdateBase):
-    slug: Annotated[str | None, Field(min_length=HallLimits.SLUG_MIN, max_length=HallLimits.SLUG_MAX)] = None
+    slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
     capacity: Annotated[int | None, Field(ge=HallLimits.CAPACITY_MIN)] = None
     cinema_id: PositiveInt | None = None
 
@@ -45,7 +45,7 @@ class HallUpdateReq(HallUpdateBase):
 
 
 class HallRead(Id, HallBaseWithRelations):
-    slug: Annotated[str, Field(min_length=HallLimits.SLUG_MIN, max_length=HallLimits.SLUG_MAX)]
+    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
     capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)]
 
     model_config = ConfigDict(from_attributes=True)

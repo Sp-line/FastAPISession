@@ -15,10 +15,11 @@ __all__ = (
     "BookingLimits",
     "TicketStatus",
     "OutboxEventLimits",
+    "SlugLimits"
 )
 
 from constants.address import AddressLimits
-from constants.base import ImageUrlLimits
+from constants.base import ImageUrlLimits, SlugLimits
 from constants.booking import BookingStatus, BookingLimits
 from constants.cinema import CinemaLimits
 from constants.hall import HallLimits, HallTechType

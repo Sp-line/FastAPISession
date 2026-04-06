@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import String, Text, Integer, ForeignKey, UniqueConstraint, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from constants import HallLimits, HallTechType
+from constants import HallLimits, HallTechType, SlugLimits
 from core.models import Base
 from core.models.mixins.int_id_pk import IntIdPkMixin
 
@@ -17,7 +17,7 @@ class Hall(IntIdPkMixin, Base):
     )
 
     name: Mapped[str] = mapped_column(String(HallLimits.NAME_MAX))
-    slug: Mapped[str] = mapped_column(String(HallLimits.SLUG_MAX), unique=True)
+    slug: Mapped[str] = mapped_column(String(SlugLimits.SLUG_MAX), unique=True)
     description: Mapped[str | None] = mapped_column(Text)
     capacity: Mapped[int] = mapped_column(Integer, default=0)
     tech_type: Mapped[HallTechType] = mapped_column(SAEnum(HallTechType, native_enum=False, length=HallLimits.TECH_TYPE_MAX))
