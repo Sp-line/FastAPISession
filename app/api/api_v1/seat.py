@@ -5,7 +5,7 @@ from fastapi import APIRouter, Query
 
 from schemas.base import Pagination
 from schemas.seat import SeatRead, SeatCreateReq, SeatUpdateReq
-from services.seat import SeatService
+from services import SeatService
 
 router = APIRouter(route_class=DishkaRoute)
 

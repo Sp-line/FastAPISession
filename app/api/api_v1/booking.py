@@ -5,7 +5,7 @@ from fastapi import APIRouter, Query
 
 from schemas.base import Pagination
 from schemas.booking import BookingUpdateReq, BookingCreateReq, BookingRead
-from services.booking import BookingService
+from services import BookingService
 
 router = APIRouter(route_class=DishkaRoute)
 

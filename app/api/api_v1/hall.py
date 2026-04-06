@@ -5,7 +5,7 @@ from fastapi import APIRouter, Query
 
 from schemas.base import Pagination
 from schemas.hall import HallRead, HallCreateReq, HallUpdateReq
-from services.hall import HallService
+from services import HallService
 
 router = APIRouter(route_class=DishkaRoute)
 

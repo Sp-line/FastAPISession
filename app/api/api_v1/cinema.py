@@ -5,7 +5,7 @@ from fastapi import APIRouter, Query
 
 from schemas.base import Pagination
 from schemas.cinema import CinemaRead, CinemaCreateReq, CinemaUpdateReq
-from services.cinema import CinemaService
+from services import CinemaService
 
 router = APIRouter(route_class=DishkaRoute)
 

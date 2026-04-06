@@ -6,7 +6,7 @@ from fastapi import APIRouter, Query
 from schemas.base import Pagination
 from schemas.movie import MovieRead, MovieCreateReq, MovieUpdateReq, MovieRelationsRead, \
     GetMoviesWithRelationsForListQuery
-from services.movie import MovieService
+from services import MovieService
 
 router = APIRouter(route_class=DishkaRoute)
 

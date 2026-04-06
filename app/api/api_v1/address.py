@@ -5,7 +5,7 @@ from fastapi import APIRouter, Query
 
 from schemas.address import AddressRead, AddressCreateReq, AddressUpdateReq
 from schemas.base import Pagination
-from services.address import AddressService
+from services import AddressService
 
 router = APIRouter(route_class=DishkaRoute)
 
