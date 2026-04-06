@@ -19,13 +19,7 @@ class SessionPriceService(
             repository=repository,
             unit_of_work=unit_of_work,
             table_name="session_prices",
-            read_schema_type=SessionPriceRead,
+            read_schema=SessionPriceRead,
+            db_create_schema=SessionPriceCreateDB,
+            db_update_schema=SessionPriceUpdateDB,
         )
-
-    @staticmethod
-    def _prepare_create_data(data: SessionPriceCreateReq) -> SessionPriceCreateDB:
-        return SessionPriceCreateDB(**data.model_dump())
-
-    @staticmethod
-    def _prepare_update_data(data: SessionPriceUpdateReq) -> SessionPriceUpdateDB:
-        return SessionPriceUpdateDB(**data.model_dump(exclude_unset=True))

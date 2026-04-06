@@ -20,18 +20,12 @@ class SessionService(
             repository=repository,
             unit_of_work=unit_of_work,
             table_name="sessions",
-            read_schema_type=SessionRead,
+            read_schema=SessionRead,
+            db_create_schema=SessionCreateDB,
+            db_update_schema=SessionUpdateDB,
         )
 
     async def get_for_detail(self, obj_id: int) -> SessionDetail:
         if not (obj := await self._repository.get_for_detail(obj_id)):
             raise ObjectNotFoundException(obj_id, self._table_name)
         return SessionDetail.model_validate(obj)
-
-    @staticmethod
-    def _prepare_create_data(data: SessionCreateReq) -> SessionCreateDB:
-        return SessionCreateDB(**data.model_dump())
-
-    @staticmethod
-    def _prepare_update_data(data: SessionUpdateReq) -> SessionUpdateDB:
-        return SessionUpdateDB(**data.model_dump(exclude_unset=True))

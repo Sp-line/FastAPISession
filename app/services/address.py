@@ -18,13 +18,7 @@ class AddressService(
             repository=repository,
             unit_of_work=unit_of_work,
             table_name="addresses",
-            read_schema_type=AddressRead,
+            read_schema=AddressRead,
+            db_create_schema=AddressCreateDB,
+            db_update_schema=AddressUpdateDB,
         )
-
-    @staticmethod
-    def _prepare_create_data(data: AddressCreateReq) -> AddressCreateDB:
-        return AddressCreateDB(**data.model_dump())
-
-    @staticmethod
-    def _prepare_update_data(data: AddressUpdateReq) -> AddressUpdateDB:
-        return AddressUpdateDB(**data.model_dump(exclude_unset=True))

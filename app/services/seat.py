@@ -18,13 +18,7 @@ class SeatService(
             repository=repository,
             unit_of_work=unit_of_work,
             table_name="seats",
-            read_schema_type=SeatRead,
+            read_schema=SeatRead,
+            db_create_schema=SeatCreateDB,
+            db_update_schema=SeatUpdateDB,
         )
-
-    @staticmethod
-    def _prepare_create_data(data: SeatCreateReq) -> SeatCreateDB:
-        return SeatCreateDB(**data.model_dump())
-
-    @staticmethod
-    def _prepare_update_data(data: SeatUpdateReq) -> SeatUpdateDB:
-        return SeatUpdateDB(**data.model_dump(exclude_unset=True))

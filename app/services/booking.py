@@ -18,13 +18,7 @@ class BookingService(
             repository=repository,
             unit_of_work=unit_of_work,
             table_name="bookings",
-            read_schema_type=BookingRead,
+            read_schema=BookingRead,
+            db_create_schema=BookingCreateDB,
+            db_update_schema=BookingUpdateDB,
         )
-
-    @staticmethod
-    def _prepare_create_data(data: BookingCreateReq) -> BookingCreateDB:
-        return BookingCreateDB(**data.model_dump())
-
-    @staticmethod
-    def _prepare_update_data(data: BookingUpdateReq) -> BookingUpdateDB:
-        return BookingUpdateDB(**data.model_dump(exclude_unset=True))

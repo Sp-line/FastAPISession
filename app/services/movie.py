@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from datetime import date
 
 from slugify import slugify
@@ -22,7 +23,9 @@ class MovieService(
             repository=repository,
             unit_of_work=unit_of_work,
             table_name="movies",
-            read_schema_type=MovieRead,
+            read_schema=MovieRead,
+            db_create_schema=MovieCreateDB,
+            db_update_schema=MovieUpdateDB,
         )
 
     async def get_movies_with_relations_for_list_by_cinema_id_and_date(
@@ -43,13 +46,16 @@ class MovieService(
             )
         ]
 
-    @staticmethod
-    def _prepare_create_data(data: MovieCreateReq) -> MovieCreateDB:
-        return MovieCreateDB(
+    def _create_data_transfer(self, data: MovieCreateReq) -> MovieCreateDB:
+        return self._db_create_schema(
             **data.model_dump(),
-            slug=slugify(data.title)
+            slug=slugify(data.title),
         )
 
-    @staticmethod
-    def _prepare_update_data(data: MovieUpdateReq) -> MovieUpdateDB:
-        return MovieUpdateDB(**data.model_dump(exclude_unset=True))
+    def _bulk_create_data_transfer(self, data: Iterable[MovieCreateReq]) -> list[MovieCreateDB]:
+        return [
+            self._db_create_schema(
+                **obj.model_dump(),
+                slug=slugify(obj.title),
+            ) for obj in data
+        ]
