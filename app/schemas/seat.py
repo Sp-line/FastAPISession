@@ -64,7 +64,7 @@ class SeatCreateEvent(SeatRead):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SeatUpdateEvent(Id, SeatUpdateDB):
+class SeatUpdateEvent(SeatRead):
     model_config = ConfigDict(from_attributes=True)
 
 

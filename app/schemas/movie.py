@@ -61,9 +61,9 @@ class GetMoviesWithRelationsForListQuery(Pagination):
     target_date: date
 
 
-class MovieCreateEvent(MovieCreateDB):
+class MovieCreateEvent(MovieRead):
     model_config = ConfigDict(extra='ignore')
 
 
-class MovieUpdateEvent(Id, MovieUpdateDB):
+class MovieUpdateEvent(MovieRead):
     model_config = ConfigDict(extra='ignore')
