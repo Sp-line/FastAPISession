@@ -17,12 +17,12 @@ class MovieBase(BaseModel):
     poster_url: Annotated[str | None, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)] = None
 
 
-class MovieCreateDB(Id, MovieBase):
-    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
-
-
 class MovieCreateReq(Id, MovieBase):
     pass
+
+
+class MovieCreateDB(MovieCreateReq):
+    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
 
 
 class MovieUpdateBase(BaseModel):
@@ -32,13 +32,13 @@ class MovieUpdateBase(BaseModel):
     premiere_date: datetime | None = None
 
 
-class MovieUpdateDB(MovieUpdateBase):
-    slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
-    poster_url: Annotated[str | None, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)] = None
-
-
 class MovieUpdateReq(MovieUpdateBase):
     pass
+
+
+class MovieUpdateDB(MovieUpdateReq):
+    slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
+    poster_url: Annotated[str | None, Field(min_length=ImageUrlLimits.MIN, max_length=ImageUrlLimits.MAX)] = None
 
 
 class MovieRead(Id, MovieBase):

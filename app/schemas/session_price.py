@@ -17,11 +17,11 @@ class SessionPriceBaseWithRelations(SessionPriceBase):
     session_id: PositiveInt
 
 
-class SessionPriceCreateDB(SessionPriceBaseWithRelations):
+class SessionPriceCreateReq(SessionPriceBaseWithRelations):
     pass
 
 
-class SessionPriceCreateReq(SessionPriceBaseWithRelations):
+class SessionPriceCreateDB(SessionPriceCreateReq):
     pass
 
 
@@ -30,12 +30,12 @@ class SessionPriceUpdateBase(BaseModel):
     price: Annotated[Decimal | None, Field(ge=SessionPriceLimits.PRICE_MIN)] = None
 
 
-class SessionPriceUpdateDB(SessionPriceUpdateBase):
-    session_id: PositiveInt | None = None
-
-
 class SessionPriceUpdateReq(SessionPriceUpdateBase):
     pass
+
+
+class SessionPriceUpdateDB(SessionPriceUpdateReq):
+    session_id: PositiveInt | None = None
 
 
 class SessionPriceRead(Id, SessionPriceBaseWithRelations):

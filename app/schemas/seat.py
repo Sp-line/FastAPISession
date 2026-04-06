@@ -22,11 +22,11 @@ class SeatBaseWithRelations(SeatBase):
     hall_id: PositiveInt
 
 
-class SeatCreateDB(SeatBaseWithRelations):
+class SeatCreateReq(SeatBaseWithRelations):
     pass
 
 
-class SeatCreateReq(SeatBaseWithRelations):
+class SeatCreateDB(SeatCreateReq):
     pass
 
 
@@ -42,12 +42,12 @@ class SeatUpdateBase(BaseModel):
     column: Annotated[int | None, Field(ge=SeatLimits.COLUMN_MIN)] = None
 
 
-class SeatUpdateDB(SeatUpdateBase):
-    hall_id: PositiveInt | None = None
-
-
 class SeatUpdateReq(SeatUpdateBase):
     pass
+
+
+class SeatUpdateDB(SeatUpdateReq):
+    hall_id: PositiveInt | None = None
 
 
 class SeatRead(Id, SeatBaseWithRelations):

@@ -20,11 +20,11 @@ class AddressBaseWithRelations(AddressBase):
     cinema_id: PositiveInt
 
 
-class AddressCreateDB(AddressBaseWithRelations):
+class AddressCreateReq(AddressBaseWithRelations):
     pass
 
 
-class AddressCreateReq(AddressBaseWithRelations):
+class AddressCreateDB(AddressCreateReq):
     pass
 
 
@@ -42,12 +42,12 @@ class AddressUpdateBase(BaseModel):
         float | None, Field(ge=AddressLimits.LONGITUDE_MIN, le=AddressLimits.LONGITUDE_MAX)] = None
 
 
-class AddressUpdateDB(AddressUpdateBase):
-    cinema_id: PositiveInt | None = None
-
-
 class AddressUpdateReq(AddressUpdateBase):
     pass
+
+
+class AddressUpdateDB(AddressUpdateReq):
+    cinema_id: PositiveInt | None = None
 
 
 class AddressRead(Id, AddressBaseWithRelations):

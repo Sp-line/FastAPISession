@@ -29,11 +29,11 @@ class SessionBaseWithRelations(SessionBase):
     movie_id: PositiveInt
 
 
-class SessionCreateDB(SessionBaseWithRelations):
+class SessionCreateReq(SessionBaseWithRelations):
     pass
 
 
-class SessionCreateReq(SessionBaseWithRelations):
+class SessionCreateDB(SessionCreateReq):
     pass
 
 
@@ -44,13 +44,13 @@ class SessionUpdateBase(BaseModel):
     screen_technology: ScreenTechnology | None = None
 
 
-class SessionUpdateDB(SessionUpdateBase):
-    hall_id: PositiveInt | None = None
-    movie_id: PositiveInt | None = None
-
-
 class SessionUpdateReq(SessionUpdateBase):
     pass
+
+
+class SessionUpdateDB(SessionUpdateReq):
+    hall_id: PositiveInt | None = None
+    movie_id: PositiveInt | None = None
 
 
 class SessionRead(Id, SessionBaseWithRelations):

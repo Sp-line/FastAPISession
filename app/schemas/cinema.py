@@ -12,12 +12,12 @@ class CinemaBase(BaseModel):
     description: str | None = None
 
 
-class CinemaCreateDB(CinemaBase):
-    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
-
-
 class CinemaCreateReq(CinemaBase):
     pass
+
+
+class CinemaCreateDB(CinemaCreateReq):
+    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
 
 
 class CinemaUpdateBase(BaseModel):
@@ -25,12 +25,12 @@ class CinemaUpdateBase(BaseModel):
     description: str | None = None
 
 
-class CinemaUpdateDB(CinemaUpdateBase):
-    slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
-
-
 class CinemaUpdateReq(CinemaUpdateBase):
     pass
+
+
+class CinemaUpdateDB(CinemaUpdateReq):
+    slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
 
 
 class CinemaRead(Id, CinemaBase):

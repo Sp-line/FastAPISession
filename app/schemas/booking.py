@@ -13,11 +13,11 @@ class BookingBaseWithRelations(BookingBase):
     seat_id: PositiveInt
 
 
-class BookingCreateDB(BookingBaseWithRelations):
+class BookingCreateReq(BookingBaseWithRelations):
     pass
 
 
-class BookingCreateReq(BookingBaseWithRelations):
+class BookingCreateDB(BookingCreateReq):
     pass
 
 
@@ -25,13 +25,13 @@ class BookingUpdateBase(BaseModel):
     status: BookingStatus | None = None
 
 
-class BookingUpdateDB(BookingUpdateBase):
-    session_id: PositiveInt | None = None
-    seat_id: PositiveInt | None = None
-
-
 class BookingUpdateReq(BookingUpdateBase):
     pass
+
+
+class BookingUpdateDB(BookingUpdateReq):
+    session_id: PositiveInt | None = None
+    seat_id: PositiveInt | None = None
 
 
 class BookingRead(Id, BookingBaseWithRelations):

@@ -19,13 +19,13 @@ class HallBaseWithRelations(HallBase):
     cinema_id: PositiveInt
 
 
-class HallCreateDB(HallBaseWithRelations):
-    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
-    capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)] = 0
-
-
 class HallCreateReq(HallBaseWithRelations):
     pass
+
+
+class HallCreateDB(HallCreateReq):
+    slug: Annotated[str, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)]
+    capacity: Annotated[int, Field(ge=HallLimits.CAPACITY_MIN)] = 0
 
 
 class HallUpdateBase(BaseModel):
@@ -34,14 +34,14 @@ class HallUpdateBase(BaseModel):
     tech_type: HallTechType | None = None
 
 
-class HallUpdateDB(HallUpdateBase):
+class HallUpdateReq(HallUpdateBase):
+    pass
+
+
+class HallUpdateDB(HallUpdateReq):
     slug: Annotated[str | None, Field(min_length=SlugLimits.SLUG_MIN, max_length=SlugLimits.SLUG_MAX)] = None
     capacity: Annotated[int | None, Field(ge=HallLimits.CAPACITY_MIN)] = None
     cinema_id: PositiveInt | None = None
-
-
-class HallUpdateReq(HallUpdateBase):
-    pass
 
 
 class HallRead(Id, HallBaseWithRelations):
