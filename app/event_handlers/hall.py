@@ -3,8 +3,7 @@ from faststream import AckPolicy
 from nats.js.api import DeliverPolicy
 
 from core import fs_router, stream
-from repositories.hall import HallRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import HallRepository, UnitOfWork
 from schemas.seat import SeatCreateEvent, SeatDeleteEvent
 
 

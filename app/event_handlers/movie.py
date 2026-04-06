@@ -4,8 +4,7 @@ from nats.js.api import DeliverPolicy
 from pydantic import TypeAdapter
 
 from core import fs_router, catalog_stream
-from repositories.movie import MovieRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import MovieRepository, UnitOfWork
 from schemas.movie import MovieCreateEvent, MovieCreateDB, MovieUpdateEvent, MovieUpdateDB
 
 

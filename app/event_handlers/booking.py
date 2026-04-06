@@ -3,8 +3,7 @@ from faststream import AckPolicy
 
 from core import fs_router, purchases_stream
 from event_handlers.base import base_consumer_config
-from repositories.booking import BookingRepository
-from repositories.unit_of_work import UnitOfWork
+from repositories import BookingRepository, UnitOfWork
 from schemas.booking import BookingCreateDB, BookingDeleteDB
 from schemas.ticket import TicketCreateEvent, TicketUpdateEvent, TicketDeleteEvent
 from services.ticket import TicketStatusAdapter
