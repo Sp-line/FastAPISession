@@ -2,7 +2,7 @@ from collections.abc import Sequence, Iterable
 from typing import Any
 
 from pydantic import BaseModel
-from sqlalchemy import select, update, delete
+from sqlalchemy import select, update, delete, insert
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -46,23 +46,22 @@ class RepositoryBase[
         return obj
 
     async def bulk_create(self, data: Iterable[TCreateSchema]) -> Sequence[TModel]:
-        if not data:
+        insert_data = [item.model_dump() for item in data]
+        if not insert_data:
             return []
 
-        objs = [
-            self._model(**item.model_dump())
-            for item in data
-        ]
-
-        self._session.add_all(objs)
+        stmt = (
+            insert(self._model)
+            .returning(self._model)
+        )
 
         try:
-            await self._session.flush()
+            result = await self._session.scalars(stmt, insert_data)
         except IntegrityError as e:
             self._table_error_handler.handle(e)
             raise
 
-        return objs
+        return result.all()
 
     async def get_by_id(self, obj_id: int) -> TModel | None:
         return await self._session.get(self._model, obj_id)
