@@ -10,7 +10,7 @@ import event_handlers  # noqa: F401
 from core import fs_router
 from core.models import db_helper
 from dependencies import InfrastructureProvider, RepositoryProvider, ServiceProvider
-from exceptions import register_exception_handlers
+from exceptions.handlers import register_exception_handlers
 
 
 @asynccontextmanager
