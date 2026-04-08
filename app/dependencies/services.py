@@ -8,12 +8,15 @@ from services import (
     BookingService,
     MovieService,
     SeatService,
-    SessionPriceService
+    SessionPriceService,
+    InboxUnitOfWork
 )
 
 
 class ServiceProvider(Provider):
     scope = Scope.REQUEST
+
+    get_inbox_unit_of_work = provide(InboxUnitOfWork)
 
     get_address_service = provide(AddressService)
     get_cinema_service = provide(CinemaService)
