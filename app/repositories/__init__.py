@@ -11,11 +11,14 @@ __all__ = (
     "SeatRepository",
     "SessionRepository",
     "SessionPriceRepository",
+    "InboxEventRepository",
 )
 
 from repositories.base import RepositoryBase
 from repositories.signals import SignalRepositoryBase
 from repositories.unit_of_work import UnitOfWork
+
+from repositories.inbox_event import InboxEventRepository
 from repositories.address import AddressRepository
 from repositories.cinema import CinemaRepository
 from repositories.hall import HallRepository
