@@ -9,7 +9,8 @@ from repositories import (
     BookingRepository,
     MovieRepository,
     SeatRepository,
-    SessionPriceRepository
+    SessionPriceRepository,
+    InboxEventRepository
 )
 
 
@@ -26,3 +27,4 @@ class RepositoryProvider(Provider):
     get_movie_repo = provide(MovieRepository)
     get_seat_repo = provide(SeatRepository)
     get_session_price_repo = provide(SessionPriceRepository)
+    get_inbox_event_repo = provide(InboxEventRepository)
