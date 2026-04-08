@@ -15,7 +15,8 @@ __all__ = (
     "BookingLimits",
     "TicketStatus",
     "OutboxEventLimits",
-    "SlugLimits"
+    "SlugLimits",
+    "InboxEventLimits",
 )
 
 from constants.address import AddressLimits
@@ -23,6 +24,7 @@ from constants.base import ImageUrlLimits, SlugLimits
 from constants.booking import BookingStatus, BookingLimits
 from constants.cinema import CinemaLimits
 from constants.hall import HallLimits, HallTechType
+from constants.inbox_event import InboxEventLimits
 from constants.movie import MovieLimits
 from constants.outbox_event import OutboxEventLimits
 from constants.seat import SeatLimits
